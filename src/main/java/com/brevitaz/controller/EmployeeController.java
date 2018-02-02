@@ -9,15 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ERPSystem")
+@RequestMapping("/employees")
 public class EmployeeController
 {
 
     private List<Employee> employees =new ArrayList<>();
-    private List<Role> roles=new ArrayList<>();
-    private List<Rights> rights=new ArrayList<>();
 
-    @RequestMapping(value = "/register", method = {RequestMethod.POST})
+    @RequestMapping(method = {RequestMethod.POST})
     public void register(@RequestBody Employee employee)
     {
         System.out.println("Registered Successfully");
@@ -65,7 +63,7 @@ public class EmployeeController
     public List<Role> viewRoles()
     {
         System.out.println("All the Data Show here");
-        return roles;
+        return null;
     }
 
     @RequestMapping(value = "/deleteRole/id={id}", method = {RequestMethod.DELETE})
@@ -91,7 +89,7 @@ public class EmployeeController
     public List<Rights> viewRights()
     {
         System.out.println("All the Rights Show here");
-        return rights;
+        return null;
     }
     @RequestMapping(value = "/viewRights/{id}", method = {RequestMethod.GET})
     public Rights viewRights(@PathVariable String id)
