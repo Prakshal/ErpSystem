@@ -4,7 +4,7 @@ public class Role
 {
     private String roleId;
     private String roleName;
-    private Rights[] rights;
+    private Right[] right;
 
     public String getRoleId() {
         return roleId;

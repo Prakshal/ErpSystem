@@ -13,6 +13,10 @@ public class Right
 	public String getRightName() {
 		return rightName;
 	}
+	@Override
+	public String toString() {
+		return "Right [rightId=" + rightId + ", rightName=" + rightName + "]";
+	}
 	public void setRightName(String rightName) {
 		this.rightName = rightName;
 	}
