@@ -1,7 +1,7 @@
 package com.brevitaz.controller;
 
 import com.brevitaz.model.Employee;
-import com.brevitaz.model.Rights;
+import com.brevitaz.model.Right;
 import com.brevitaz.model.Role;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,25 +74,25 @@ public class EmployeeController
 
 
     @RequestMapping(value = "/createRights", method = {RequestMethod.POST})
-    public void createRights(@RequestBody Rights rights)
+    public void createRights(@RequestBody Right rights)
     {
         System.out.println("Create Rights method called");
     }
 
     @RequestMapping(value = "/updateRights/id={id}", method = {RequestMethod.PUT})
-    public void updateRights(@RequestBody Rights rights,@PathVariable String id)
+    public void updateRights(@RequestBody Right rights,@PathVariable String id)
     {
         System.out.println("Updated Successfully");
     }
 
     @RequestMapping(value = "/viewRights", method = {RequestMethod.GET})
-    public List<Rights> viewRights()
+    public List<Right> viewRights()
     {
         System.out.println("All the Rights Show here");
         return null;
     }
     @RequestMapping(value = "/viewRights/{id}", method = {RequestMethod.GET})
-    public Rights viewRights(@PathVariable String id)
+    public Right viewRights(@PathVariable String id)
     {
         System.out.println("All the Rights Show here");
         return null;
