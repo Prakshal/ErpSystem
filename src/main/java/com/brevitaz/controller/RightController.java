@@ -30,5 +30,4 @@ public class RightController
 		System.out.println("Right unassigned");
 		return true;
 	}
-	
 }
