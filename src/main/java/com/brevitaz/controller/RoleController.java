@@ -22,7 +22,7 @@ public class RoleController {
     }
 
     @RequestMapping(method = {RequestMethod.GET})
-    public void getRoles()
+    public void viewRoles()
     {
         System.out.println("Get roless successfully");
     }
