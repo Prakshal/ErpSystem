@@ -9,7 +9,7 @@ public class RoleController {
 
     @RequestMapping(method = {RequestMethod.POST})
     public boolean createRole(@RequestBody Role role) {
-        System.out.println("ROle is created");
+        System.out.println("Role is created");
         return true;
     }
 
