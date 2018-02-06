@@ -1,4 +1,4 @@
 package com.brevitaz.dao;
 
-public class EmployeeDao {
+public interface EmployeeDao {
 }
