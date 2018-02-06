@@ -8,30 +8,13 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Address address;
-    private Date birthDate;
-    private String mobile;
+    private Date dob;
+    private String mobileNo;
     private String emailId;
     private String password;
-    private int salary;
+    private long salary;
     private boolean status;
     private Role[] roles;
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId='" + employeeId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address=" + address +
-                ", birthDate=" + birthDate +
-                ", mobile='" + mobile + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", password='" + password + '\'' +
-                ", salary=" + salary +
-                ", status=" + status +
-                ", roles=" + Arrays.toString(roles) +
-                '}';
-    }
 
     public String getEmployeeId() {
         return employeeId;
@@ -57,28 +40,20 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Address getAddress() {
-        return address;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     public String getEmailId() {
@@ -97,11 +72,11 @@ public class Employee {
         this.password = password;
     }
 
-    public int getSalary() {
+    public long getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(long salary) {
         this.salary = salary;
     }
 
@@ -113,11 +88,20 @@ public class Employee {
         this.status = status;
     }
 
-    public Role[] getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Role[] roles) {
-        this.roles = roles;
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId='" + employeeId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address=" + address +
+                ", dob=" + dob +
+                ", mobileNo='" + mobileNo + '\'' +
+                ", emailId='" + emailId + '\'' +
+                ", password='" + password + '\'' +
+                ", salary=" + salary +
+                ", status=" + status +
+                ", roles=" + Arrays.toString(roles) +
+                '}';
     }
 }

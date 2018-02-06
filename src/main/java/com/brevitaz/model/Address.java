@@ -2,21 +2,18 @@ package com.brevitaz.model;
 
 public class Address
 {
+    private String street;
     private String city;
     private String state;
     private String country;
-    private String pinCode;
-    private String address;
+    private long pincode;
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", pinCode='" + pinCode + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCity() {
@@ -43,19 +40,22 @@ public class Address
         this.country = country;
     }
 
-    public String getPinCode() {
-        return pinCode;
+    public long getPincode() {
+        return pincode;
     }
 
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
+    public void setPincode(long pincode) {
+        this.pincode = pincode;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public String toString() {
+        return "Address{" +
+                "street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", country='" + country + '\'' +
+                ", pincode=" + pincode +
+                '}';
     }
 }
