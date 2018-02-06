@@ -14,19 +14,12 @@ public class EmployeeController
     private List<Employee> employees =new ArrayList<>();
 
     @RequestMapping(method = {RequestMethod.POST})
-    public boolean register(@RequestBody Employee employee)
+    public boolean create(@RequestBody Employee employee)
     {
         System.out.println("Registered Successfully");
         return true;
     }
 
-    @RequestMapping(value = "/login", method = {RequestMethod.POST})
-    public boolean login(@RequestBody Employee employee)
-    {
-        System.out.println(employee.getEmailId()+" "+employee.getPassword());
-        System.out.println("Login Successfully");
-        return true;
-    }
 
     @RequestMapping(method = {RequestMethod.GET})
     public List<Employee> viewEmployee()
@@ -36,23 +29,23 @@ public class EmployeeController
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
-    public boolean updateEmployee(@RequestBody Employee employee,@PathVariable String id)
+    public boolean update(@RequestBody Employee employee,@PathVariable String id)
     {
         System.out.println("Updated Successfully");
         return true;
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean deleteEmployee(@PathVariable String id)
+    public boolean delete(@PathVariable String id)
     {
         System.out.println("Deleted Successfully");
         return true;
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public boolean getById(@PathVariable String id)
+    public Employee getById(@PathVariable String id)
     {
         System.out.println("Get By Id method called");
-        return true;
+        return new Employee();
     }
 }
