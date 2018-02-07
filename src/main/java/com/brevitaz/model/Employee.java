@@ -1,20 +1,33 @@
 package com.brevitaz.model;
 
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class Employee {
     private String employeeId;
     private String firstName;
     private String lastName;
-    private Address address;
+    private List<Address> address;
     private Date dob;
-    private String mobileNo;
+    private Date doj;
+    private String contactNo;
+    private String secondaryContactNo;
+    private String emergencyContactNo;
     private String emailId;
+    private String secondaryEmailId;
     private String password;
-    private long salary;
+    private String position;
+    private String createdBy;
+    private Date createdDate;
+    private String updatedBy;
+    private Date updatedDate;
+    private List<Experience> experience;
+    private MultipartFile documents; //upload documents(eg:id proof) functionality to be provided
+    private MultipartFile photo; //upload picture of the employee 
     private boolean status;
-    private Role[] roles;
+    private List<Role> role;
 
     public String getEmployeeId() {
         return employeeId;
@@ -48,21 +61,53 @@ public class Employee {
         this.dob = dob;
     }
 
-    public String getMobileNo() {
-        return mobileNo;
+    public Date getDoj() {
+		return doj;
+	}
+
+	public void setDoj(Date doj) {
+		this.doj = doj;
+	}
+
+	public String getContactNo() {
+        return contactNo;
     }
 
-    public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+    public void setContactNo(String mobileNo) {
+        this.contactNo = mobileNo;
     }
 
-    public String getEmailId() {
+    public String getSecondaryContactNo() {
+		return secondaryContactNo;
+	}
+
+	public void setSecondaryContactNo(String secondaryContactNo) {
+		this.secondaryContactNo = secondaryContactNo;
+	}
+
+	public String getEmergencyContactNo() {
+		return emergencyContactNo;
+	}
+
+	public void setEmergencyContactNo(String emergencyContactNo) {
+		this.emergencyContactNo = emergencyContactNo;
+	}
+
+	public String getEmailId() {
         return emailId;
     }
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
+    
+	public String getSecondaryEmailId() {
+		return secondaryEmailId;
+	}
+
+	public void setSecondaryEmailId(String secondaryEmailId) {
+		this.secondaryEmailId = secondaryEmailId;
+	}
 
     public String getPassword() {
         return password;
@@ -72,15 +117,47 @@ public class Employee {
         this.password = password;
     }
 
-    public long getSalary() {
-        return salary;
-    }
+    public String getPosition() {
+		return position;
+	}
 
-    public void setSalary(long salary) {
-        this.salary = salary;
-    }
+	public void setPosition(String position) {
+		this.position = position;
+	}
 
-    public boolean isStatus() {
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public boolean isStatus() {
         return status;
     }
 
@@ -88,20 +165,30 @@ public class Employee {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId='" + employeeId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address=" + address +
-                ", dob=" + dob +
-                ", mobileNo='" + mobileNo + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", password='" + password + '\'' +
-                ", salary=" + salary +
-                ", status=" + status +
-                ", roles=" + Arrays.toString(roles) +
-                '}';
-    }
+    public MultipartFile getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(MultipartFile document) {
+		this.documents = document;
+	}
+
+	public MultipartFile getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(MultipartFile photo) {
+		this.photo = photo;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", address=" + address + ", dob=" + dob + ", doj=" + doj + ", contactNo=" + contactNo + ", emailId=" + emailId
+				+ ", password=" + password + ", position=" + position + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + ", experience="
+				+ experience + ", documents=" + documents + ", photo=" + photo + ", status=" + status + ", role=" + role
+				+ "]";
+	}
+	
 }
