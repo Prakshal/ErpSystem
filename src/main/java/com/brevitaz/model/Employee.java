@@ -12,13 +12,14 @@ public class Employee {
     private List<Address> address;
     private Date dob;
     private Date doj;
+    private String designation;
+    private String department;
     private String contactNo;
     private String secondaryContactNo;
     private String emergencyContactNo;
     private String emailId;
     private String secondaryEmailId;
     private String password;
-    private String position;
     private String createdBy;
     private Date createdDate;
     private String updatedBy;
@@ -69,6 +70,22 @@ public class Employee {
 		this.doj = doj;
 	}
 
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
 	public String getContactNo() {
         return contactNo;
     }
@@ -116,14 +133,6 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
 
 	public String getCreatedBy() {
 		return createdBy;
@@ -184,11 +193,13 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", address=" + address + ", dob=" + dob + ", doj=" + doj + ", contactNo=" + contactNo + ", emailId=" + emailId
-				+ ", password=" + password + ", position=" + position + ", createdBy=" + createdBy + ", createdDate="
-				+ createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + ", experience="
-				+ experience + ", documents=" + documents + ", photo=" + photo + ", status=" + status + ", role=" + role
-				+ "]";
+				+ ", address=" + address + ", dob=" + dob + ", doj=" + doj + ", designation=" + designation
+				+ ", department=" + department + ", contactNo=" + contactNo + ", secondaryContactNo="
+				+ secondaryContactNo + ", emergencyContactNo=" + emergencyContactNo + ", emailId=" + emailId
+				+ ", secondaryEmailId=" + secondaryEmailId + ", password=" + password + ", createdBy=" + createdBy
+				+ ", createdDate=" + createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate
+				+ ", experience=" + experience + ", documents=" + documents + ", photo=" + photo + ", status=" + status
+				+ ", role=" + role + "]";
 	}
 	
 }

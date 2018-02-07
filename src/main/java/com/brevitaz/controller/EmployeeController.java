@@ -22,7 +22,7 @@ public class EmployeeController
 
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Employee> viewEmployee()
+    public List<Employee> getAll()
     {
         System.out.println("All the Data Show here");
         return employees;
