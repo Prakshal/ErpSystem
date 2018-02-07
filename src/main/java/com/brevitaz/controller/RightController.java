@@ -13,19 +13,19 @@ import com.brevitaz.model.Right;
 public class RightController
 {
 	@RequestMapping(method={RequestMethod.POST})
-	public boolean createRight(@RequestBody Right rights)
+	public boolean create(@RequestBody Right rights)
 	{
 		System.out.println("Right created");
 		return true;
 	}
-	@RequestMapping(value="/{rightId}/roles/{roleId}",method={RequestMethod.POST})
-	public boolean assignRight(@PathVariable String rightId, @PathVariable String roleId)
+	@RequestMapping(value="/{rightId}/assign/{roleId}",method={RequestMethod.POST})
+	public boolean assign(@PathVariable String rightId, @PathVariable String roleId)
 	{
 		System.out.println("Right assigned");
 		return true;
 	}
-	@RequestMapping(value="/{rightId}/roles/{roleId}",method={RequestMethod.DELETE})
-	public boolean unassignRight(@PathVariable String rightId, @PathVariable String roleId)
+	@RequestMapping(value="/{rightId}/unassign/{roleId}",method={RequestMethod.DELETE})
+	public boolean unassign(@PathVariable String rightId, @PathVariable String roleId)
 	{
 		System.out.println("Right unassigned");
 		return true;
