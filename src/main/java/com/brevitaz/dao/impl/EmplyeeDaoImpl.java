@@ -110,9 +110,8 @@ public class EmplyeeDaoImpl implements EmployeeDao
         {
             return true;
         }
-        else {
+        else
             return false;
-        }
     }
 
     @Override
