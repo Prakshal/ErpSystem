@@ -47,6 +47,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 employee.getEmployeeId());
         try
         {
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             String json = objectMapper.writeValueAsString(employee);
             request.source(json, XContentType.JSON);
             IndexResponse indexResponse =esConfig.getEsClient().index(request);
@@ -97,11 +98,11 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 TYPE_NAME,
                 employeeId);
 
+        //employee.setEmployeeId(employeeId);
 
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json=objectMapper.writeValueAsString(employee);
         request.doc(json,XContentType.JSON);
-
         UpdateResponse updateResponse = esConfig.getEsClient().update(request);
 
         System.out.println(updateResponse.status());
