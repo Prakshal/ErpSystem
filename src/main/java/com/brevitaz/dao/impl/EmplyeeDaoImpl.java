@@ -110,10 +110,13 @@ public class EmplyeeDaoImpl implements EmployeeDao
         System.out.println(updateResponse.status());
         if(updateResponse.status()==RestStatus.OK)
         {
+            System.out.println("Prakshal");
             return true;
         }
-        else
+        else {
+            System.out.println("Doshi");
             return false;
+        }
     }
 
     @Override
