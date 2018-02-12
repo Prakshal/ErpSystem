@@ -9,12 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employee")
 public class EmployeeController
 {
-
-    private List<Employee> employees =new ArrayList<>();
-
     @Autowired
     private EmployeeDao employeeDao;
 

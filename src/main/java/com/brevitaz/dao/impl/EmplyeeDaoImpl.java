@@ -33,13 +33,8 @@ public class EmplyeeDaoImpl implements EmployeeDao
     private static final String TYPE_NAME="doc";
     private static final String INDEX_NAME="employee";
 
-    private ESConfig esConfig;
-
     @Autowired
-    public void setEsConfig(ESConfig esConfig)
-    {
-        this.esConfig = esConfig;
-    }
+    private ESConfig esConfig;
 
     private ObjectMapper objectMapper = new ObjectMapper();
     @Override

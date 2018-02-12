@@ -18,7 +18,6 @@ public class ESConfig {
         }
         return esClient;
     }
-    @Bean
     public void setEsClient(RestHighLevelClient esClient) {
         this.esClient = esClient;
     }
