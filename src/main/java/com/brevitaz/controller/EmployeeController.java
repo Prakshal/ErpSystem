@@ -5,6 +5,7 @@ import com.brevitaz.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +30,8 @@ public class EmployeeController
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
-    public boolean update(@RequestBody Employee employee,@PathVariable String id)
-    {
-        System.out.println("Updated Successfully");
-        return true;
+    public boolean update(@RequestBody Employee employee,@PathVariable String id) throws IOException {
+        return employeeDao.update(employee,id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
