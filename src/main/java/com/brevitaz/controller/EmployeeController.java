@@ -1,6 +1,8 @@
 package com.brevitaz.controller;
 
+import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,19 +15,20 @@ public class EmployeeController
 
     private List<Employee> employees =new ArrayList<>();
 
+    @Autowired
+    private EmployeeDao employeeDao;
+
     @RequestMapping(method = {RequestMethod.POST})
     public boolean create(@RequestBody Employee employee)
     {
-        System.out.println("Registered Successfully");
-        return true;
+        return employeeDao.insert(employee);
     }
 
 
     @RequestMapping(method = {RequestMethod.GET})
     public List<Employee> getAll()
     {
-        System.out.println("All the Data Show here");
-        return employees;
+        return employeeDao.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
@@ -38,14 +41,12 @@ public class EmployeeController
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String id)
     {
-        System.out.println("Deleted Successfully");
-        return true;
+       return employeeDao.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public Employee getById(@PathVariable String id)
     {
-        System.out.println("Get By Id method called");
-        return new Employee();
+        return employeeDao.getById(id);
     }
 }
