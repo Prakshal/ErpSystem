@@ -16,7 +16,7 @@ public class EmployeeController
     @Autowired
     private EmployeeDao employeeDao;
 
-    @RequestMapping(method = {RequestMethod.POST})
+    @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee)
     {
         return employeeDao.insert(employee);
@@ -29,7 +29,7 @@ public class EmployeeController
         return employeeDao.getAll();
     }
 
-    @RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public boolean update(@RequestBody Employee employee,@PathVariable String id) throws IOException {
         return employeeDao.update(employee,id);
     }
