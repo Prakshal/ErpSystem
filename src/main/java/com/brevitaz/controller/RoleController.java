@@ -1,7 +1,9 @@
 package com.brevitaz.controller;
 
+import com.brevitaz.dao.RoleDao;
 import com.brevitaz.model.Employee;
 import com.brevitaz.model.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,10 +14,12 @@ import java.util.List;
 public class RoleController {
     private List<Role> roles =new ArrayList<>();
 
+    @Autowired
+    private RoleDao dao;
+
     @RequestMapping(method = {RequestMethod.POST})
     public boolean create(@RequestBody Role role) {
-        System.out.println("Role is created");
-        return true;
+        return dao.create(role);
     }
 
     @RequestMapping(value="/{roleId}/assign/{employeeId}",method = {RequestMethod.POST})
@@ -29,14 +33,13 @@ public class RoleController {
     @RequestMapping(method = {RequestMethod.GET})
     public List<Role> get()
     {
-        System.out.println("Get roless successfully");
-        return roles;
+
+        return dao.get();
     }
 
     @RequestMapping(value = "/{roleId}",method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String roleId)
     {
-        System.out.println("Role is deleted");
-        return true;
+        return dao.delete(roleId);
     }
 }
