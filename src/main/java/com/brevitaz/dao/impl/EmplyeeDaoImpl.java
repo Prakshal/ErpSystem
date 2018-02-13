@@ -4,6 +4,7 @@ import com.brevitaz.config.ESConfig;
 import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -16,8 +17,10 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -97,24 +100,17 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 INDEX_NAME,
                 TYPE_NAME,
                 employeeId);
-
-        //employee.setEmployeeId(employeeId);
-
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json=objectMapper.writeValueAsString(employee);
         request.doc(json,XContentType.JSON);
         UpdateResponse updateResponse = esConfig.getEsClient().update(request);
-
         System.out.println(updateResponse.status());
         if(updateResponse.status()==RestStatus.OK)
         {
-            System.out.println("Prakshal");
             return true;
         }
-        else {
-            System.out.println("Doshi");
+        else
             return false;
-        }
     }
 
     @Override
