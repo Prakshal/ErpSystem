@@ -17,15 +17,13 @@ public class EmployeeController
     private EmployeeDao employeeDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody Employee employee)
-    {
+    public boolean create(@RequestBody Employee employee) throws IOException {
         return employeeDao.insert(employee);
     }
 
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Employee> getAll()
-    {
+    public List<Employee> getAll() throws IOException {
         return employeeDao.getAll();
     }
 
@@ -35,14 +33,12 @@ public class EmployeeController
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id)
-    {
+    public boolean delete(@PathVariable String id) throws IOException {
        return employeeDao.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String id)
-    {
+    public Employee getById(@PathVariable String id) throws IOException {
         return employeeDao.getById(id);
     }
 }
