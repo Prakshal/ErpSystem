@@ -41,57 +41,42 @@ public class EmplyeeDaoImpl implements EmployeeDao
     private ESConfig esConfig;
 
     private ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
-    public boolean insert(Employee employee)
-    {
+    public boolean insert(Employee employee) throws IOException {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
                 TYPE_NAME,
                 employee.getEmployeeId());
-        try
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        String json = objectMapper.writeValueAsString(employee);
+        request.source(json, XContentType.JSON);
+        IndexResponse response =esConfig.getEsClient().index(request);
+        if(response.status()== RestStatus.CREATED) {
+            return true;
+        }
+        else
         {
-            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            String json = objectMapper.writeValueAsString(employee);
-            request.source(json, XContentType.JSON);
-            IndexResponse indexResponse =esConfig.getEsClient().index(request);
-            System.out.println(indexResponse);
-            if(indexResponse.status()== RestStatus.CREATED) {
-                return true;
-            }
-            else
-                return false;
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public List<Employee> getAll()
-    {
-        List<Employee> students = new ArrayList<>();
-        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
-        searchRequest.types(TYPE_NAME);
+    public List<Employee> getAll() throws IOException {
+        List<Employee> employees = new ArrayList<>();
+        SearchRequest request = new SearchRequest(INDEX_NAME);
+        request.types(TYPE_NAME);
 
-        try {
-            SearchResponse searchResponse = esConfig.getEsClient().search(searchRequest);
+        SearchResponse response = esConfig.getEsClient().search(request);
+        SearchHit[] hits = response.getHits().getHits();
+        Employee employee;
 
-            System.out.println(searchResponse);
-
-            SearchHit[] hits = searchResponse.getHits().getHits();
-
-            Employee employee;
-
-            for (SearchHit hit : hits)
-            {
-                employee = objectMapper.readValue(hit.getSourceAsString(), Employee.class);
-                students.add(employee);
-                System.out.println(employee);
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        for (SearchHit hit : hits)
+        {
+            employee = objectMapper.readValue(hit.getSourceAsString(), Employee.class);
+            employees.add(employee);
         }
-        return students;
+        return employees;
     }
 
     @Override
@@ -101,64 +86,52 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 TYPE_NAME,
                 employeeId);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        String json=objectMapper.writeValueAsString(employee);
-        request.doc(json,XContentType.JSON);
-        UpdateResponse updateResponse = esConfig.getEsClient().update(request);
-        System.out.println(updateResponse.status());
-        if(updateResponse.status()==RestStatus.OK)
+        String json = objectMapper.writeValueAsString(employee);
+        request.doc(json, XContentType.JSON);
+        UpdateResponse response = esConfig.getEsClient().update(request);
+        if (response.status() == RestStatus.OK)
         {
             return true;
         }
         else
+        {
             return false;
+        }
     }
 
     @Override
-    public boolean delete(String employeeId)
-    {
+    public boolean delete(String employeeId) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
                 employeeId);
 
-        DeleteResponse deleteResponse = null;
-        try {
-            deleteResponse = esConfig.getEsClient().delete(request);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(deleteResponse.status()==RestStatus.OK)
+        DeleteResponse response = null;
+        response = esConfig.getEsClient().delete(request);
+        if(response.status()==RestStatus.OK)
         {
             return true;
         }
         else
+        {
             return false;
+        }
     }
 
     @Override
-    public Employee getById(String employeeId)
-    {
-        GetRequest getRequest = new GetRequest(
+    public Employee getById(String employeeId) throws IOException {
+        GetRequest request = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
                 employeeId);
 
-        GetResponse getResponse = null;
+        GetResponse response = null;
         Employee employee=null;
         {
-            try {
-                getResponse = esConfig.getEsClient().get(getRequest);
-
-                employee = objectMapper.readValue(getResponse.getSourceAsString(), Employee.class);
-                System.out.println(getResponse.isExists());
-                System.out.println(employee);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            response = esConfig.getEsClient().get(request);
+            employee = objectMapper.readValue(response.getSourceAsString(), Employee.class);
         }
-        if (getResponse.isExists()) {
+        if (response.isExists()) {
             return employee;
         }
         else

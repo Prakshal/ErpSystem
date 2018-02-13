@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface EmployeeDao
 {
-    public boolean insert(Employee employee);
-    public List<Employee> getAll();
+    public boolean insert(Employee employee) throws IOException;
+    public List<Employee> getAll() throws IOException;
     public boolean update(Employee employee,String employeeId) throws IOException;
-    public boolean delete(String employeeId);
-    public Employee getById(String employeeId);
+    public boolean delete(String employeeId) throws IOException;
+    public Employee getById(String employeeId) throws IOException;
 }
