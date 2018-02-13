@@ -6,6 +6,7 @@ import com.brevitaz.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class RoleController {
     private RoleDao dao;
 
     @RequestMapping(method = {RequestMethod.POST})
-    public boolean create(@RequestBody Role role) {
+    public boolean create(@RequestBody Role role) throws IOException {
         return dao.create(role);
     }
 
@@ -31,15 +32,13 @@ public class RoleController {
     }
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Role> get()
-    {
+    public List<Role> get() throws IOException {
 
         return dao.get();
     }
 
     @RequestMapping(value = "/{roleId}",method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String roleId)
-    {
+    public boolean delete(@PathVariable String roleId) throws IOException {
         return dao.delete(roleId);
     }
 }
