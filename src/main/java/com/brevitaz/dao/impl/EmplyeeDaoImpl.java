@@ -85,7 +85,6 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 INDEX_NAME,
                 TYPE_NAME,
                 employeeId);
-
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = objectMapper.writeValueAsString(employee);
         request.doc(json, XContentType.JSON);

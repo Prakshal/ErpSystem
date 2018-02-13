@@ -9,7 +9,8 @@ public class Employee {
     private String employeeId;
     private String firstName;
     private String lastName;
-    private List<Address> address;
+    private Address temporaryAddress;
+	private Address permanentAddress;
     private Date dob;
     private Date doj;
     private String designation;
@@ -58,7 +59,39 @@ public class Employee {
         return dob;
     }
 
-    public void setDob(Date dob) {
+	public Address getTemporaryAddress() {
+		return temporaryAddress;
+	}
+
+	public void setTemporaryAddress(Address temporaryAddress) {
+		this.temporaryAddress = temporaryAddress;
+	}
+
+	public Address getPermanentAddress() {
+		return permanentAddress;
+	}
+
+	public void setPermanentAddress(Address permanentAddress) {
+		this.permanentAddress = permanentAddress;
+	}
+
+	public List<Experience> getExperience() {
+		return experience;
+	}
+
+	public void setExperience(List<Experience> experience) {
+		this.experience = experience;
+	}
+
+	public List<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(List<Role> role) {
+		this.role = role;
+	}
+
+	public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -192,14 +225,31 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", address=" + address + ", dob=" + dob + ", doj=" + doj + ", designation=" + designation
-				+ ", department=" + department + ", contactNo=" + contactNo + ", secondaryContactNo="
-				+ secondaryContactNo + ", emergencyContactNo=" + emergencyContactNo + ", emailId=" + emailId
-				+ ", secondaryEmailId=" + secondaryEmailId + ", password=" + password + ", createdBy=" + createdBy
-				+ ", createdDate=" + createdDate + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate
-				+ ", experience=" + experience + ", documents=" + documents + ", photo=" + photo + ", status=" + status
-				+ ", role=" + role + "]";
+		return "Employee{" +
+				"employeeId='" + employeeId + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", temporaryAddress=" + temporaryAddress +
+				", permanentAddress=" + permanentAddress +
+				", dob=" + dob +
+				", doj=" + doj +
+				", designation='" + designation + '\'' +
+				", department='" + department + '\'' +
+				", contactNo='" + contactNo + '\'' +
+				", secondaryContactNo='" + secondaryContactNo + '\'' +
+				", emergencyContactNo='" + emergencyContactNo + '\'' +
+				", emailId='" + emailId + '\'' +
+				", secondaryEmailId='" + secondaryEmailId + '\'' +
+				", password='" + password + '\'' +
+				", createdBy='" + createdBy + '\'' +
+				", createdDate=" + createdDate +
+				", updatedBy='" + updatedBy + '\'' +
+				", updatedDate=" + updatedDate +
+				", experience=" + experience +
+				", documents=" + documents +
+				", photo=" + photo +
+				", status=" + status +
+				", role=" + role +
+				'}';
 	}
-	
 }
