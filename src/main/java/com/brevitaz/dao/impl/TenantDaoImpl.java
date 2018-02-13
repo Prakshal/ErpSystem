@@ -2,10 +2,8 @@ package com.brevitaz.dao.impl;
 
 import com.brevitaz.config.ESConfig;
 import com.brevitaz.dao.TenantDao;
-import com.brevitaz.model.Employee;
 import com.brevitaz.model.Tenant;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -18,6 +16,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
@@ -29,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 @Repository
@@ -125,7 +125,9 @@ public class TenantDaoImpl implements TenantDao
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
-        sourceBuilder.query(QueryBuilders.boolQuery().must(termQuery("tenantName", tenantName)));
+        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
+
+
         request.source(sourceBuilder);
 
         SearchResponse response = null;
