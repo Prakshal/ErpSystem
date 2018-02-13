@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
-    private List<Role> roles =new ArrayList<>();
 
     @Autowired
     private RoleDao dao;
