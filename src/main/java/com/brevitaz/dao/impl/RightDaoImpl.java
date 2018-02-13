@@ -36,7 +36,7 @@ public class RightDaoImpl implements RightDao {
     public static final String TYPE_NAME = "doc";
 
     @Autowired
-    ESConfig esConfig;
+    private ESConfig esConfig;
 
     ObjectMapper objectMapper = new ObjectMapper();
 

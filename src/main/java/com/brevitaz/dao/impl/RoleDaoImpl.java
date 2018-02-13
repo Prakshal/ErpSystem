@@ -75,8 +75,7 @@ public class RoleDaoImpl implements RoleDao {
                 INDEX_NAME,
                 TYPE_NAME,
                 roleId);
-        DeleteResponse response = null;
-        response = esConfig.getEsClient().delete(request);
+        DeleteResponse response = esConfig.getEsClient().delete(request);
         if(response.status()==RestStatus.OK)
         {
             return true;

@@ -18,7 +18,7 @@ import java.util.List;
 public class RightController
 {
 	@Autowired
-	RightDao rightDao;
+	private RightDao rightDao;
 
 	@RequestMapping(method={RequestMethod.POST})
 	public boolean create(@RequestBody Right right) throws IOException {
