@@ -73,7 +73,7 @@ public class RightDaoImpl implements RightDao {
     }
 
     @Override
-    public boolean update(Right right, String rightId) {
+    public boolean update(Right right, String rightId) throws IOException {
         UpdateRequest request = new UpdateRequest(
                 INDEX_NAME,
                 TYPE_NAME,
@@ -81,7 +81,6 @@ public class RightDaoImpl implements RightDao {
         );
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = null;
-        try {
             json = objectMapper.writeValueAsString(right);
             request.doc(json, XContentType.JSON);
             UpdateResponse response = esConfig.getEsClient().update(request);
@@ -89,11 +88,6 @@ public class RightDaoImpl implements RightDao {
                 return true;
             else
                 return false;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     @Override
