@@ -56,9 +56,9 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public List<Role> get() throws IOException {
         List<Role> roles = new ArrayList<>();
-        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
-        searchRequest.types(TYPE_NAME);
-        SearchResponse searchResponse = esConfig.getEsClient().search(searchRequest);
+        SearchRequest request = new SearchRequest(INDEX_NAME);
+        request.types(TYPE_NAME);
+        SearchResponse searchResponse = esConfig.getEsClient().search(request);
         SearchHit[] hits = searchResponse.getHits().getHits();
         Role role;
         for (SearchHit hit : hits) {
@@ -75,8 +75,7 @@ public class RoleDaoImpl implements RoleDao {
                 INDEX_NAME,
                 TYPE_NAME,
                 roleId);
-        DeleteResponse response = null;
-        response = esConfig.getEsClient().delete(request);
+        DeleteResponse response = esConfig.getEsClient().delete(request);
         if(response.status()==RestStatus.OK)
         {
             return true;

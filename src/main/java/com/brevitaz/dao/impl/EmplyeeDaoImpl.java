@@ -106,8 +106,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 TYPE_NAME,
                 employeeId);
 
-        DeleteResponse response = null;
-        response = esConfig.getEsClient().delete(request);
+        DeleteResponse response = esConfig.getEsClient().delete(request);
         if(response.status()==RestStatus.OK)
         {
             return true;
@@ -125,12 +124,8 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 TYPE_NAME,
                 employeeId);
 
-        GetResponse response = null;
-        Employee employee=null;
-        {
-            response = esConfig.getEsClient().get(request);
-            employee = objectMapper.readValue(response.getSourceAsString(), Employee.class);
-        }
+        GetResponse response = esConfig.getEsClient().get(request);
+        Employee employee = objectMapper.readValue(response.getSourceAsString(), Employee.class);
         if (response.isExists()) {
             return employee;
         }
