@@ -37,7 +37,7 @@ public class RoleDaoImpl implements RoleDao {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                role.getRoleId());
+                role.getId());
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = objectMapper.writeValueAsString(role);
         request.source(json, XContentType.JSON);
@@ -69,12 +69,12 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public boolean delete(String roleId) throws IOException {
+    public boolean delete(String id) throws IOException {
 
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                roleId);
+                id);
         DeleteResponse response = esConfig.getEsClient().delete(request);
         if(response.status()==RestStatus.OK)
         {

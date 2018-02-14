@@ -22,22 +22,28 @@ public class RoleController {
         return dao.create(role);
     }
 
-    @RequestMapping(value="/{roleId}/assign/{employeeId}",method = {RequestMethod.POST})
-    public boolean assign(@PathVariable String roleId,String employeeId)
+    @RequestMapping(value="/{id}/assign/{employeeId}",method = {RequestMethod.POST})
+    public boolean assign(@PathVariable String id,String employeeId)
     {
         System.out.println("Assign roles Successfully");
-        System.out.println("Role "+roleId+ " to employee "+employeeId);
+        System.out.println("Role "+id+ " to employee "+employeeId);
         return true;
     }
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Role> get() throws IOException {
+    public List<Role> getAll() throws IOException {
 
         return dao.get();
     }
 
-    @RequestMapping(value = "/{roleId}",method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String roleId) throws IOException {
-        return dao.delete(roleId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    public List<Role> getById() throws IOException {
+
+        return dao.get();
+    }
+    
+    @RequestMapping(value = "/{id}",method = {RequestMethod.DELETE})
+    public boolean delete(@PathVariable String id) throws IOException {
+        return dao.delete(id);
     }
 }

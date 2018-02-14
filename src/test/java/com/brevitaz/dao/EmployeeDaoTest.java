@@ -21,7 +21,7 @@ public class EmployeeDaoTest
     @Test
     public void insertTest() throws IOException {
         System.out.println(employee);
-        employee.setEmployeeId("1");
+        employee.setId("1");
         employee.setFirstName("Prakshal");
         employee.setLastName("Doshi");
 

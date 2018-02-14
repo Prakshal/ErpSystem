@@ -27,23 +27,23 @@ public class TenantController {
         return tenantDao.tenants();
     }
 
-    @RequestMapping(value = "/{tenantId}",method = {RequestMethod.GET})
-    public Tenant getById(@PathVariable String tenantId) throws IOException {
-     return tenantDao.getById(tenantId);
+    @RequestMapping(value = "/{id}",method = {RequestMethod.GET})
+    public Tenant getById(@PathVariable String id) throws IOException {
+     return tenantDao.getById(id);
     }
 
-    @RequestMapping(value = "/{tenantId}",method = {RequestMethod.PUT})
-    public boolean update(@RequestBody Tenant tenant,@PathVariable String tenantId) throws IOException {
-        return tenantDao.update(tenant,tenantId);
+    @RequestMapping(value = "/{id}",method = {RequestMethod.PUT})
+    public boolean update(@RequestBody Tenant tenant,@PathVariable String id) throws IOException {
+        return tenantDao.update(tenant,id);
     }
 
-    @RequestMapping(value = "/{tenantId}",method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String tenantId) throws IOException {
-        return tenantDao.delete(tenantId);
+    @RequestMapping(value = "/{id}",method = {RequestMethod.DELETE})
+    public boolean delete(@PathVariable String id) throws IOException {
+        return tenantDao.delete(id);
     }
 
-    @RequestMapping(value = "/name/{tenantName}",method = {RequestMethod.GET})
-    public List<Tenant> getByName(@PathVariable String tenantName) throws IOException {
-        return tenantDao.getByName(tenantName);
+    @RequestMapping(value = "/name/{name}",method = {RequestMethod.GET})
+    public List<Tenant> getByName(@PathVariable String name) throws IOException {
+        return tenantDao.getByName(name);
     }
 }

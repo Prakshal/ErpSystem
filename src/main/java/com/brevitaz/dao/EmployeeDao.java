@@ -11,7 +11,7 @@ public interface EmployeeDao
 {
     public boolean insert(Employee employee) throws IOException;
     public List<Employee> getAll() throws IOException;
-    public boolean update(Employee employee,String employeeId) throws IOException;
-    public boolean delete(String employeeId) throws IOException;
-    public Employee getById(String employeeId) throws IOException;
+    public boolean update(Employee employee,String id) throws IOException;
+    public boolean delete(String id) throws IOException;
+    public Employee getById(String id) throws IOException;
 }

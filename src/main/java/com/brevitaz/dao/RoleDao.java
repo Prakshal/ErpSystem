@@ -9,5 +9,5 @@ import java.util.List;
 public interface RoleDao {
     public boolean create(Role role) throws IOException;
     public List<Role> get() throws IOException;
-    public boolean delete(String roleId) throws IOException;
+    public boolean delete(String id) throws IOException;
 }

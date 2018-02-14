@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 @Repository
@@ -47,7 +48,7 @@ public class TenantDaoImpl implements TenantDao
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                tenant.getTenantId());
+                tenant.getId());
 
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = objectMapper.writeValueAsString(tenant);
@@ -81,11 +82,11 @@ public class TenantDaoImpl implements TenantDao
     }
 
     @Override
-    public Tenant getById(String tenantId) throws IOException {
+    public Tenant getById(String id) throws IOException {
         GetRequest getRequest = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                tenantId);
+                id);
 
         GetResponse response = esConfig.getEsClient().get(getRequest);
 
@@ -101,11 +102,11 @@ public class TenantDaoImpl implements TenantDao
     }
 
     @Override
-    public boolean update(Tenant tenant, String tenantId) throws IOException {
+    public boolean update(Tenant tenant, String id) throws IOException {
         UpdateRequest request = new UpdateRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                tenantId);
+                id);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json=objectMapper.writeValueAsString(tenant);
         request.doc(json,XContentType.JSON);
@@ -119,16 +120,13 @@ public class TenantDaoImpl implements TenantDao
     }
 
     @Override
-    public List<Tenant> getByName(String tenantName) throws IOException {
+    public List<Tenant> getByName(String name) throws IOException {
         SearchRequest request = new SearchRequest(INDEX_NAME);
         request.types(TYPE_NAME);
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
-        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
-        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
-
-
+        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("name", name)));
         request.source(sourceBuilder);
 
         SearchResponse response = null;
@@ -138,7 +136,7 @@ public class TenantDaoImpl implements TenantDao
 
             SearchHit[] hits = response.getHits().getHits();
 
-            Tenant tenant=null;
+            Tenant tenant;
             for (SearchHit hit : hits)
             {
                 tenant = objectMapper.readValue(hit.getSourceAsString(), Tenant.class);
@@ -149,11 +147,11 @@ public class TenantDaoImpl implements TenantDao
     }
 
     @Override
-    public boolean delete(String tenantId) throws IOException {
+    public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                tenantId);
+                id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
 
