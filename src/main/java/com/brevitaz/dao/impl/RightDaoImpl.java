@@ -45,7 +45,7 @@ public class RightDaoImpl implements RightDao {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                right.getRightId());
+                right.getId());
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             String json = objectMapper.writeValueAsString(right);
             request.source(json, XContentType.JSON);
@@ -73,11 +73,11 @@ public class RightDaoImpl implements RightDao {
     }
 
     @Override
-    public boolean update(Right right, String rightId) throws IOException {
+    public boolean update(Right right, String id) throws IOException {
         UpdateRequest request = new UpdateRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                rightId
+                id
         );
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = null;
@@ -91,11 +91,11 @@ public class RightDaoImpl implements RightDao {
     }
 
     @Override
-    public boolean delete(String rightId) throws IOException {
+    public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                rightId
+                id
         );
         DeleteResponse response = esConfig.getEsClient().delete(request);
         if (response.status()==RestStatus.OK)
@@ -105,11 +105,11 @@ public class RightDaoImpl implements RightDao {
     }
 
     @Override
-    public Right getById(String rightId) throws IOException {
+    public Right getById(String id) throws IOException {
         GetRequest request = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                rightId
+                id
         );
         GetResponse response = esConfig.getEsClient().get(request);
         Right right = objectMapper.readValue(response.getSourceAsString(),Right.class);

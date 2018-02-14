@@ -1,5 +1,6 @@
 package com.brevitaz.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 public class Employee {
-    private String employeeId;
+    private String id;
     private String firstName;
     private String lastName;
     private Address temporaryAddress;
@@ -33,32 +34,28 @@ public class Employee {
     private boolean status;
     private List<Role> role;
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getDob() {
-    	return dob;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Address getTemporaryAddress() {
@@ -77,27 +74,15 @@ public class Employee {
 		this.permanentAddress = permanentAddress;
 	}
 
-	public List<Experience> getExperience() {
-		return experience;
-	}
-
-	public void setExperience(List<Experience> experience) {
-		this.experience = experience;
-	}
-
-	public List<Role> getRole() {
-		return role;
-	}
-
-	public void setRole(List<Role> role) {
-		this.role = role;
+	public Date getDob() {
+		return dob;
 	}
 
 	public void setDob(Date dob) {
-        this.dob = dob;
-    }
+		this.dob = dob;
+	}
 
-    public Date getDoj() {
+	public Date getDoj() {
 		return doj;
 	}
 
@@ -122,14 +107,14 @@ public class Employee {
 	}
 
 	public String getContactNo() {
-        return contactNo;
-    }
+		return contactNo;
+	}
 
-    public void setContactNo(String mobileNo) {
-        this.contactNo = mobileNo;
-    }
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
 
-    public String getSecondaryContactNo() {
+	public String getSecondaryContactNo() {
 		return secondaryContactNo;
 	}
 
@@ -146,13 +131,13 @@ public class Employee {
 	}
 
 	public String getEmailId() {
-        return emailId;
-    }
+		return emailId;
+	}
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-    
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
 	public String getSecondaryEmailId() {
 		return secondaryEmailId;
 	}
@@ -161,13 +146,13 @@ public class Employee {
 		this.secondaryEmailId = secondaryEmailId;
 	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getCreatedBy() {
 		return createdBy;
@@ -201,20 +186,20 @@ public class Employee {
 		this.updatedDate = updatedDate;
 	}
 
-	public boolean isStatus() {
-        return status;
-    }
+	public List<Experience> getExperience() {
+		return experience;
+	}
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+	public void setExperience(List<Experience> experience) {
+		this.experience = experience;
+	}
 
-    public MultipartFile getDocuments() {
+	public MultipartFile getDocuments() {
 		return documents;
 	}
 
-	public void setDocuments(MultipartFile document) {
-		this.documents = document;
+	public void setDocuments(MultipartFile documents) {
+		this.documents = documents;
 	}
 
 	public MultipartFile getPhoto() {
@@ -225,10 +210,26 @@ public class Employee {
 		this.photo = photo;
 	}
 
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public List<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(List<Role> role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee{" +
-				"employeeId='" + employeeId + '\'' +
+				"id='" + id + '\'' +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", temporaryAddress=" + temporaryAddress +

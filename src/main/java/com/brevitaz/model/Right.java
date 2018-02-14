@@ -2,22 +2,30 @@ package com.brevitaz.model;
 
 public class Right
 {
-	private String rightId;
-	private String rightName;
-	public String getRightId() {
-		return rightId;
+	private String id;
+	private String name;
+
+	public String getId() {
+		return id;
 	}
-	public void setRightId(String rightId) {
-		this.rightId = rightId;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getRightName() {
-		return rightName;
+
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "Right [rightId=" + rightId + ", rightName=" + rightName + "]";
-	}
-	public void setRightName(String rightName) {
-		this.rightName = rightName;
+		return "Right{" +
+				"id='" + id + '\'' +
+				", name='" + name + '\'' +
+				'}';
 	}
 }

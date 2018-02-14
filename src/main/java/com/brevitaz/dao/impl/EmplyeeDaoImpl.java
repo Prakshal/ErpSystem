@@ -47,7 +47,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                employee.getEmployeeId());
+                employee.getId());
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = objectMapper.writeValueAsString(employee);
         request.source(json, XContentType.JSON);
@@ -80,11 +80,11 @@ public class EmplyeeDaoImpl implements EmployeeDao
     }
 
     @Override
-    public boolean update(Employee employee, String employeeId) throws IOException {
+    public boolean update(Employee employee, String id) throws IOException {
         UpdateRequest request = new UpdateRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                employeeId);
+                id);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = objectMapper.writeValueAsString(employee);
         request.doc(json, XContentType.JSON);
@@ -100,11 +100,11 @@ public class EmplyeeDaoImpl implements EmployeeDao
     }
 
     @Override
-    public boolean delete(String employeeId) throws IOException {
+    public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                employeeId);
+                id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
         if(response.status()==RestStatus.OK)
@@ -118,11 +118,11 @@ public class EmplyeeDaoImpl implements EmployeeDao
     }
 
     @Override
-    public Employee getById(String employeeId) throws IOException {
+    public Employee getById(String id) throws IOException {
         GetRequest request = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                employeeId);
+                id);
 
         GetResponse response = esConfig.getEsClient().get(request);
         Employee employee = objectMapper.readValue(response.getSourceAsString(), Employee.class);

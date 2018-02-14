@@ -10,7 +10,7 @@ public interface RightDao {
 
     public boolean insert(Right right) throws IOException;
     public List<Right> getAll() throws IOException;
-    public boolean update(Right right, String rightId) throws IOException;
-    public boolean delete(String rightId) throws IOException;
-    public Right getById(String rightId) throws IOException;
+    public boolean update(Right right, String id) throws IOException;
+    public boolean delete(String id) throws IOException;
+    public Right getById(String id) throws IOException;
 }

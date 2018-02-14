@@ -1,28 +1,36 @@
 package com.brevitaz.model;
 
 public class Tenant {
-    private String tenantId;
-    private String tenantName;
+    private String id;
+    private String name;
     private Address address;
     private String webSite;
     private String officeNo;
     private String email;
     private String contactPerson;
 
-    public String getTenantId() {
-        return tenantId;
+    public String getId() {
+        return id;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getTenantName() {
-        return tenantName;
+    public String getName() {
+        return name;
     }
 
-    public void setTenantName(String tenantName) {
-        this.tenantName = tenantName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getWebSite() {
@@ -60,8 +68,8 @@ public class Tenant {
     @Override
     public String toString() {
         return "Tenant{" +
-                "tenantId='" + tenantId + '\'' +
-                ", tenantName='" + tenantName + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", address=" + address +
                 ", webSite='" + webSite + '\'' +
                 ", officeNo='" + officeNo + '\'' +
