@@ -54,7 +54,7 @@ public class TenantDaoImpl implements TenantDao
         String json = objectMapper.writeValueAsString(tenant);
         request.source(json, XContentType.JSON);
         IndexResponse response =esConfig.getEsClient().index(request);
-        if(response.status()== RestStatus.CREATED) {
+        if(response.status()== RestStatus.OK) {
             return true;
         }
         else
@@ -111,6 +111,7 @@ public class TenantDaoImpl implements TenantDao
         String json=objectMapper.writeValueAsString(tenant);
         request.doc(json,XContentType.JSON);
         UpdateResponse response = esConfig.getEsClient().update(request);
+        System.out.println(response.status());
         if(response.status()==RestStatus.OK)
         {
             return true;
@@ -155,7 +156,8 @@ public class TenantDaoImpl implements TenantDao
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
 
-        if(response.status()==RestStatus.OK)
+        System.out.println(response.status());
+        if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;
         }

@@ -52,7 +52,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
         String json = objectMapper.writeValueAsString(employee);
         request.source(json, XContentType.JSON);
         IndexResponse response =esConfig.getEsClient().index(request);
-        if(response.status()== RestStatus.CREATED) {
+        if(response.status()== RestStatus.OK) {
             return true;
         }
         else
@@ -107,7 +107,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
-        if(response.status()==RestStatus.OK)
+        if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;
         }

@@ -50,7 +50,7 @@ public class RightDaoImpl implements RightDao {
             String json = objectMapper.writeValueAsString(right);
             request.source(json, XContentType.JSON);
             IndexResponse response = esConfig.getEsClient().index(request);
-            if (response.status() == RestStatus.CREATED)
+            if (response.status() == RestStatus.OK)
                 return true;
             else
                 return false;
@@ -98,7 +98,7 @@ public class RightDaoImpl implements RightDao {
                 id
         );
         DeleteResponse response = esConfig.getEsClient().delete(request);
-        if (response.status()==RestStatus.OK)
+        if (response.status()==RestStatus.NOT_FOUND)
             return true;
         else
             return false;

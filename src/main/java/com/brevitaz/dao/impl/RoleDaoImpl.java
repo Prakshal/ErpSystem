@@ -42,7 +42,7 @@ public class RoleDaoImpl implements RoleDao {
         String json = objectMapper.writeValueAsString(role);
         request.source(json, XContentType.JSON);
         IndexResponse response = esConfig.getEsClient().index(request);
-        if (response.status()== RestStatus.CREATED)
+        if (response.status()== RestStatus.OK)
         {
             return true;
         }
@@ -76,7 +76,7 @@ public class RoleDaoImpl implements RoleDao {
                 TYPE_NAME,
                 id);
         DeleteResponse response = esConfig.getEsClient().delete(request);
-        if(response.status()==RestStatus.OK)
+        if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;
         }
