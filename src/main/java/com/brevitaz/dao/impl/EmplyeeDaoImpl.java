@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
-@Repository
+@Repository()
 public class EmplyeeDaoImpl implements EmployeeDao
 {
 
