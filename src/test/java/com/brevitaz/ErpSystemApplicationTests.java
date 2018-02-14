@@ -12,5 +12,4 @@ public class ErpSystemApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

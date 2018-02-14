@@ -18,14 +18,11 @@ public class ESConfig {
         }
         return esClient;
     }
+
     public void setEsClient(RestHighLevelClient esClient) {
         this.esClient = esClient;
     }
     public ESConfig() {
 
     }
-    /*public void setup() {
-        System.out.println("Configuration");
-
-    }*/
 }

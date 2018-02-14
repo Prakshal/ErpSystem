@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 @Repository
@@ -119,24 +120,25 @@ public class TenantDaoImpl implements TenantDao
     }
 
     @Override
-    public List<Tenant> getByName(String tenantName) throws IOException {
-        SearchRequest request = new SearchRequest(INDEX_NAME);
-        request.types(TYPE_NAME);
+    public List<Tenant> getByName(String tenantName) throws IOException
+    {
+        SearchRequest searchRequest = new SearchRequest(INDEX_NAME);
+        searchRequest.types(TYPE_NAME);
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
         sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
-        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
+        searchRequest.source(sourceBuilder);
 
-
-        request.source(sourceBuilder);
-
-        SearchResponse response = null;
+        SearchResponse searchResponse = null;
         List<Tenant> tenants=new ArrayList<>();
+        try {
+            searchResponse = esConfig.getEsClient().search(searchRequest);
 
-            response = esConfig.getEsClient().search(request);
+            System.out.println(searchResponse);
 
-            SearchHit[] hits = response.getHits().getHits();
+            SearchHit[] hits = searchResponse.getHits().getHits();
+            System.out.println(hits.length);
 
             Tenant tenant=null;
             for (SearchHit hit : hits)
@@ -145,8 +147,12 @@ public class TenantDaoImpl implements TenantDao
                 tenants.add(tenant);
             }
 
-            return tenants;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tenants;
     }
+
 
     @Override
     public boolean delete(String tenantId) throws IOException {
