@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 @Repository
@@ -124,11 +125,7 @@ public class TenantDaoImpl implements TenantDao
         request.types(TYPE_NAME);
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-
         sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
-        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("tenantName", tenantName)));
-
-
         request.source(sourceBuilder);
 
         SearchResponse response = null;
