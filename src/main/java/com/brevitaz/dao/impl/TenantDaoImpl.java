@@ -155,8 +155,6 @@ public class TenantDaoImpl implements TenantDao
                 id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
-
-        System.out.println(response.status());
         if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;
