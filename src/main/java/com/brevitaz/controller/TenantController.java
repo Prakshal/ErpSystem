@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/tenant")
+@RequestMapping("api/tenant")
 public class TenantController {
 
     @Autowired

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("api/employee")
 public class EmployeeController
 {
     @Autowired
