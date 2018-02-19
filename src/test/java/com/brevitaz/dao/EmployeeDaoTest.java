@@ -5,27 +5,54 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.io.IOException;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-public class EmployeeDaoTest
-{
-    @Autowired
-    private EmployeeDao employeeDao;
+@SpringBootTest
+public class EmployeeDaoTest {
 
     @Autowired
-    private Employee employee;
+    EmployeeDao employeeDao;
 
     @Test
-    public void insertTest() throws IOException {
-        System.out.println(employee);
-        employee.setId("1");
-        employee.setFirstName("Prakshal");
-        employee.setLastName("Doshi");
+    public void createTest() throws IOException {
+        Employee employee = new Employee();
+        employee.setId("2");
+        employee.setFirstName("mnwruierjkewj");
+        employee.setLastName("pqrst");
 
-        Assert.assertTrue(employeeDao.insert(employee));
+        boolean data = employeeDao.insert(employee);
+        Assert.assertEquals(true,data);
+    }
 
+    @Test
+    public void getAllTest() throws IOException {
+        List<Employee> get = employeeDao.getAll();
+        int size = get.size();
+        Assert.assertEquals(2,size);
+       }
+
+    @Test
+    public void get() throws IOException {
+        Employee employee = employeeDao.getById("1");
+        Assert.assertNotNull(employee);
+    }
+
+    @Test
+    public void update() throws IOException {
+        Employee employee = new Employee();
+        employee.setFirstName("abcd");
+        employee.setEmailId("majhgdj@gmaol.com");
+        boolean data = employeeDao.update(employee,"1");
+        Assert.assertEquals(true,data);
+    }
+
+    @Test
+    public void delete() throws IOException {
+        boolean data=employeeDao.delete("1");
+        Assert.assertEquals(true,data);
     }
 }
