@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/rights")
+@RequestMapping("api/right")
 public class RightController
 {
 	@Autowired
