@@ -24,8 +24,8 @@ public class EmployeeDaoTest {
         employee.setFirstName("mnwruierjkewj");
         employee.setLastName("pqrst");
 
-        boolean data = employeeDao.insert(employee);
-        Assert.assertEquals(true,data);
+        boolean status = employeeDao.insert(employee);
+        Assert.assertEquals(true,status);
     }
 
     @Test
@@ -46,13 +46,13 @@ public class EmployeeDaoTest {
         Employee employee = new Employee();
         employee.setFirstName("abcd");
         employee.setEmailId("majhgdj@gmaol.com");
-        boolean data = employeeDao.update(employee,"1");
-        Assert.assertEquals(true,data);
+        boolean status = employeeDao.update(employee,"1");
+        Assert.assertEquals(true,status);
     }
 
     @Test
     public void delete() throws IOException {
-        boolean data=employeeDao.delete("1");
-        Assert.assertEquals(true,data);
+        boolean status=employeeDao.delete("1");
+        Assert.assertEquals(true,status);
     }
 }
