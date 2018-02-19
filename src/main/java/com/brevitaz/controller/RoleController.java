@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role")
+@RequestMapping("api/role")
 public class RoleController {
 
     @Autowired
-    private RoleDao dao;
+    private RoleDao roleDao;
 
     @RequestMapping(method = {RequestMethod.POST})
     public boolean create(@RequestBody Role role) throws IOException {
-        return dao.create(role);
+        return roleDao.create(role);
     }
 
     @RequestMapping(value="/{id}/assign/{employeeId}",method = {RequestMethod.POST})
@@ -33,17 +33,17 @@ public class RoleController {
     @RequestMapping(method = {RequestMethod.GET})
     public List<Role> getAll() throws IOException {
 
-        return dao.get();
+        return roleDao.get();
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public List<Role> getById() throws IOException {
 
-        return dao.get();
+        return roleDao.get();
     }
     
     @RequestMapping(value = "/{id}",method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String id) throws IOException {
-        return dao.delete(id);
+        return roleDao.delete(id);
     }
 }
