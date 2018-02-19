@@ -5,9 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.multipart.MultipartFile;
 
-
+@EntityScan
 public class Employee {
     private String id;
     private String firstName;

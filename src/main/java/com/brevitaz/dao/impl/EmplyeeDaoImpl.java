@@ -22,6 +22,9 @@ import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -107,6 +110,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
+        response.status();
         if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;
