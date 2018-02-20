@@ -2,6 +2,7 @@ package com.brevitaz.controller;
 
 import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
+import com.brevitaz.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,31 +15,37 @@ import java.util.List;
 public class EmployeeController
 {
     @Autowired
-    private EmployeeDao employeeDao;
+    private EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee) throws IOException {
-        return employeeDao.insert(employee);
+        return employeeService.create(employee);
     }
 
 
     @RequestMapping(method = {RequestMethod.GET})
     public List<Employee> getAll() throws IOException {
-        return employeeDao.getAll();
+        return employeeService.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public boolean update(@RequestBody Employee employee,@PathVariable String id) throws IOException {
-        return employeeDao.update(employee,id);
+        return employeeService.update(employee,id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String id) throws IOException {
-       return employeeDao.delete(id);
+       return employeeService.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public Employee getById(@PathVariable String id) throws IOException {
-        return employeeDao.getById(id);
+        return employeeService.getById(id);
     }
+
+    @RequestMapping(value = "/username/{username}", method = {RequestMethod.GET}) // just to test
+    public Employee getUsername(@PathVariable String username, String password) throws IOException {
+             return employeeService.getByUsername(username,password);
+    }
+
 }

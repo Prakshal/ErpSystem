@@ -15,4 +15,5 @@ public interface EmployeeDao
     public boolean update(Employee employee,String id) throws IOException;
     public boolean delete(String id) throws IOException;
     public Employee getById(String id) throws IOException;
+    public Employee getByUsername(String username, String password) throws IOException;
 }

@@ -130,7 +130,7 @@ public class TenantDaoImpl implements TenantDao
         sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("name", name)));
         request.source(sourceBuilder);
 
-        SearchResponse response = null;
+        SearchResponse response;
         List<Tenant> tenants=new ArrayList<>();
 
             response = esConfig.getEsClient().search(request);
