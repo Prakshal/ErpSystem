@@ -127,7 +127,7 @@ public class TenantDaoImpl implements TenantDao
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
-        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("name", name)));
+        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("name.keyword", name)));
         request.source(sourceBuilder);
 
         SearchResponse response = null;

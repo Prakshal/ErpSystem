@@ -20,13 +20,13 @@ public class SwaggerConfig {
     {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.brevitaz.config"))
+                .apis(RequestHandlerSelectors.basePackage("com.brevitaz"))
                 .paths(regex("/api.*"))
                 .build().apiInfo(metadata());
     }
 
     private ApiInfo metadata(){
-        return new ApiInfoBuilder().title("ERP").description("Controller").version("1.2.2").build();
+        return new ApiInfoBuilder().title("ERP System").description("Controller").version("1.2.2").build();
     }
 
 }

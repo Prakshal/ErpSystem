@@ -2,6 +2,7 @@ package com.brevitaz.controller;
 
 import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
+import com.brevitaz.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,12 @@ public class EmployeeController
     @Autowired
     private EmployeeDao employeeDao;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee) throws IOException {
-        return employeeDao.insert(employee);
+        return employeeService.insert(employee);
     }
 
 
@@ -38,7 +42,8 @@ public class EmployeeController
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String id) throws IOException {
-        return employeeDao.getById(id);
+    public Employee getById(@PathVariable String id) throws IOException
+    {
+        return employeeService.getById(id);
     }
 }
