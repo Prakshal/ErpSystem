@@ -24,8 +24,8 @@ public class TenantDaoTest {
         tenant.setId("3");
         tenant.setName("abc");
 
-        boolean data = tenantDao.insert(tenant);
-        Assert.assertEquals(true,data);
+        boolean status = tenantDao.insert(tenant);
+        Assert.assertEquals(true,status);
     }
 
     @Test
@@ -45,8 +45,8 @@ public class TenantDaoTest {
     public void update() throws IOException {
         Tenant tenant = new Tenant();
         tenant.setName("iwwudya");
-        boolean data=tenantDao.update(tenant,"1");
-        Assert.assertEquals(true,data);
+        boolean status=tenantDao.update(tenant,"1");
+        Assert.assertEquals(true,status);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class TenantDaoTest {
 
     @Test
     public void delete() throws IOException {
-        boolean data = tenantDao.delete("1");
-        Assert.assertEquals(true,data);
+        boolean status = tenantDao.delete("1");
+        Assert.assertEquals(true,status);
     }
 }

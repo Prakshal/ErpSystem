@@ -25,8 +25,8 @@ public class RightDaoTest {
         right.setId("2");
         right.setName("mnop");
 
-        boolean data = rightDao.insert(right);
-        Assert.assertEquals(true,data);
+        boolean status = rightDao.insert(right);
+        Assert.assertEquals(true,status);
     }
 
     @Test
@@ -40,14 +40,14 @@ public class RightDaoTest {
     public void update() throws IOException {
         Right right = new Right();
         right.setName("abc");
-        boolean data = rightDao.update(right,"1");
-        Assert.assertEquals(true,data);
+        boolean status = rightDao.update(right,"1");
+        Assert.assertEquals(true,status);
     }
 
     @Test
     public void delete() throws IOException {
-        boolean data = rightDao.delete("1");
-        Assert.assertEquals(true,data);
+        boolean status = rightDao.delete("1");
+        Assert.assertEquals(true,status);
     }
 
     @Test

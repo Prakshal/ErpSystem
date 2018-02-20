@@ -23,8 +23,8 @@ public class RoleDaoTest {
         role.setId("2");
         role.setName("abckdjas");
 
-        boolean data = roleDao.create(role);
-        Assert.assertEquals(true,data);
+        boolean status = roleDao.create(role);
+        Assert.assertEquals(true,status);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RoleDaoTest {
 
     @Test
     public void delete() throws IOException {
-        boolean data = roleDao.delete("1");
-        Assert.assertEquals(true,data);
+        boolean status = roleDao.delete("1");
+        Assert.assertEquals(true,status);
     }
 }
