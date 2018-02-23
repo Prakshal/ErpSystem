@@ -32,7 +32,7 @@ public class EmployeeDaoTest {
     public void getAllTest() throws IOException {
         List<Employee> get = employeeDao.getAll();
         int size = get.size();
-        Assert.assertEquals(2,size);
+        Assert.assertEquals(1,size);
        }
 
     @Test

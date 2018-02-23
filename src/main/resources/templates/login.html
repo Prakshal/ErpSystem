@@ -20,7 +20,6 @@
             $("#form").submit(function(event){
                 var username = $("#username").val();
                 var password = $("#password").val();
-                localStorage.setItem("show", JSON.stringify($("#show")));
                 $.ajax({
                 url : $("#form").attr("action"),
                 data: {'username': username, 'password': password},

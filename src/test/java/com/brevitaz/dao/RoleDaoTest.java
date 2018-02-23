@@ -39,4 +39,11 @@ public class RoleDaoTest {
         boolean status = roleDao.delete("1");
         Assert.assertEquals(true,status);
     }
+
+    /*@Test
+    public void getById()
+    {
+        Role role = roleDao.get("1");
+        Assert.assertNotNull(true,role);
+    }*/
 }
