@@ -65,19 +65,14 @@ $(document).ready(function(){
                 url : form.action,
                 data: {'username': username, 'password': password},
                 type: form.method,
-                success: function(response){
-                        if(response=="true")
-                        {
-                           localStorage.setItem("login", "true");
-                            window.location="/welcome";
-                        }
-                         else
-                         {
-                            $("#show").html("Incorrect Username/Password. Please try again!");
-                         }
+                success: function(data, textStatus, xhr){
+                       alert(xhr.status+" "+data);
+                       //window.location="/welcome";
+                       // localStorage.setItem("login", "true");
+                        //$("#show").html("Incorrect Username/Password. Please try again!");
                 },
-                error: function(xhr, status, error) {
-                    alert(xhr.responseText);
+                error: function(data, textStatus, xhr) {
+                    alert(data.status+" "+data.responseText);
                 }
            });
                 return false;

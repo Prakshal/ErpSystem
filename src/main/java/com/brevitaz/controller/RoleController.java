@@ -18,7 +18,7 @@ public class RoleController {
     private RoleDao roleDao;
 
     @RequestMapping(method = {RequestMethod.POST})
-    public boolean create(@RequestBody Role role) throws IOException {
+    public boolean create(@RequestBody Role role){
         return roleDao.create(role);
     }
 
@@ -31,19 +31,19 @@ public class RoleController {
     }
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Role> getAll() throws IOException {
+    public List<Role> getAll() {
 
-        return roleDao.get();
+        return roleDao.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public List<Role> getById() throws IOException {
+    public Role getById(@PathVariable String id) {
 
-        return roleDao.get();
+        return roleDao.getById(id);
     }
     
     @RequestMapping(value = "/{id}",method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id) {
         return roleDao.delete(id);
     }
 }

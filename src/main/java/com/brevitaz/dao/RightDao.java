@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface RightDao {
 
-    public boolean insert(Right right) throws IOException;
-    public List<Right> getAll() throws IOException;
-    public boolean update(Right right, String id) throws IOException;
-    public boolean delete(String id) throws IOException;
-    public Right getById(String id) throws IOException;
+    public boolean insert(Right right);
+    public List<Right> getAll();
+    public boolean update(Right right, String id);
+    public boolean delete(String id);
+    public Right getById(String id);
 }

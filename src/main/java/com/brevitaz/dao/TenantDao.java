@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface TenantDao
 {
-    public boolean insert(Tenant tenant) throws IOException;
-    public List<Tenant> tenants() throws IOException;
-    public Tenant getById(String id) throws IOException;
-    public boolean update(Tenant tenant,String id) throws IOException;
-    public List<Tenant> getByName(String name) throws IOException;
-    public boolean delete(String id) throws IOException;
+    public boolean insert(Tenant tenant);
+    public List<Tenant> getAll();
+    public Tenant getById(String id);
+    public boolean update(Tenant tenant,String id);
+    public List<Tenant> getByName(String name);
+    public boolean delete(String id);
 }

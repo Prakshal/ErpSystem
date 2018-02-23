@@ -18,34 +18,34 @@ public class EmployeeController
     private EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody Employee employee) throws IOException {
+    public boolean create(@RequestBody Employee employee){
         return employeeService.create(employee);
     }
 
 
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Employee> getAll() throws IOException {
+    public List<Employee> getAll(){
         return employeeService.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody Employee employee,@PathVariable String id) throws IOException {
+    public boolean update(@RequestBody Employee employee,@PathVariable String id){
         return employeeService.update(employee,id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id){
        return employeeService.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String id) throws IOException {
+    public Employee getById(@PathVariable String id){
         return employeeService.getById(id);
     }
 
     @RequestMapping(value = "/username/{username}", method = {RequestMethod.GET}) // just to test
-    public Employee getUsername(@PathVariable String username, String password) throws IOException {
-             return employeeService.getByUsername(username,password);
+    public Employee getByUsernameAndPassword(@PathVariable String username, String password){
+             return employeeService.getByUsernameAndPassword(username,password);
     }
 
 }
