@@ -19,7 +19,7 @@ public class TenantDaoTest {
     TenantDao tenantDao;
 
     @Test
-    public  void create() throws IOException {
+    public  void create(){
         Tenant tenant = new Tenant();
         tenant.setId("3");
         tenant.setName("abc");
@@ -29,20 +29,20 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void getAll() throws IOException {
-        List<Tenant> tenants = tenantDao.tenants();
+    public void getAll(){
+        List<Tenant> tenants = tenantDao.getAll();
         int size = tenants.size();
         Assert.assertEquals(1,size);
     }
 
     @Test
-    public void getById() throws IOException {
+    public void getById(){
         Tenant tenant = tenantDao.getById("1");
         Assert.assertNotNull(tenant);
     }
 
     @Test
-    public void update() throws IOException {
+    public void update(){
         Tenant tenant = new Tenant();
         tenant.setName("iwwudya");
         boolean status=tenantDao.update(tenant,"1");
@@ -50,14 +50,14 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void getByName() throws IOException {
+    public void getByName(){
         List<Tenant> tenants = tenantDao.getByName("abc");
         int size = tenants.size();
         Assert.assertEquals(2,size);
     }
 
     @Test
-    public void delete() throws IOException {
+    public void delete(){
         boolean status = tenantDao.delete("1");
         Assert.assertEquals(true,status);
     }

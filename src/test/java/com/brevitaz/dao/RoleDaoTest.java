@@ -18,7 +18,7 @@ public class RoleDaoTest {
     RoleDao roleDao;
 
     @Test
-    public void insert() throws IOException {
+    public void insert(){
         Role role = new Role();
         role.setId("2");
         role.setName("abckdjas");
@@ -28,14 +28,14 @@ public class RoleDaoTest {
     }
 
     @Test
-    public void getAll() throws IOException {
+    public void getAll(){
         List<Role> roles=roleDao.getAll();
         int size = roles.size();
         Assert.assertEquals(1,size);
     }
 
     @Test
-    public void delete() throws IOException {
+    public void delete(){
         boolean status = roleDao.delete("1");
         Assert.assertEquals(true,status);
     }

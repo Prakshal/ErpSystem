@@ -20,7 +20,7 @@ public class RightDaoTest {
     RightDao rightDao;
 
     @Test
-    public void create() throws IOException {
+    public void create(){
         Right right = new Right();
         right.setId("2");
         right.setName("mnop");
@@ -30,14 +30,14 @@ public class RightDaoTest {
     }
 
     @Test
-    public void getAll() throws IOException {
+    public void getAll(){
         List<Right> rights = rightDao.getAll();
         int size = rights.size();
         Assert.assertEquals(1,size);
     }
 
     @Test
-    public void update() throws IOException {
+    public void update(){
         Right right = new Right();
         right.setName("abc");
         boolean status = rightDao.update(right,"1");
@@ -45,13 +45,13 @@ public class RightDaoTest {
     }
 
     @Test
-    public void delete() throws IOException {
+    public void delete(){
         boolean status = rightDao.delete("1");
         Assert.assertEquals(true,status);
     }
 
     @Test
-    public void getById() throws IOException {
+    public void getById(){
         Right right = rightDao.getById("2");
         Assert.assertNotNull(right);
     }

@@ -18,7 +18,7 @@ public class EmployeeDaoTest {
     EmployeeDao employeeDao;
 
     @Test
-    public void createTest() throws IOException {
+    public void createTest(){
         Employee employee = new Employee();
         employee.setId("2");
         employee.setFirstName("mnwruierjkewj");
@@ -29,20 +29,20 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void getAllTest() throws IOException {
+    public void getAllTest(){
         List<Employee> get = employeeDao.getAll();
         int size = get.size();
         Assert.assertEquals(1,size);
        }
 
     @Test
-    public void get() throws IOException {
+    public void get(){
         Employee employee = employeeDao.getById("1");
         Assert.assertNotNull(employee);
     }
 
     @Test
-    public void update() throws IOException {
+    public void update(){
         Employee employee = new Employee();
         employee.setFirstName("abcd");
         employee.setEmailId("majhgdj@gmaol.com");
@@ -51,7 +51,7 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void delete() throws IOException {
+    public void delete(){
         boolean status=employeeDao.delete("1");
         Assert.assertEquals(true,status);
     }
