@@ -148,16 +148,18 @@ public class EmplyeeDaoImpl implements EmployeeDao
         request.types(TYPE_NAME);
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("emailId.keyword", username)).must(matchQuery("password.keyword", password)));
+        sourceBuilder.query(QueryBuilders.boolQuery()
+                            .must(matchQuery("emailId.keyword", username))
+                            .must(matchQuery("password.keyword", password)));
         request.source(sourceBuilder);
 
         SearchResponse response = esConfig.getEsClient().search(request);
         SearchHit[] hits = response.getHits().getHits();
-        Employee employee = null;
+        Employee employee=null;
 
-        for(SearchHit hit : hits)
-            employee=objectMapper.readValue(hit.getSourceAsString(), Employee.class);
+       for(SearchHit hit : hits)
+           employee= objectMapper.readValue(hit.getSourceAsString(), Employee.class);
 
-        return employee;
+       return employee;
     }
 }
