@@ -29,7 +29,7 @@ public class RoleDaoTest {
 
     @Test
     public void getAll() throws IOException {
-        List<Role> roles=roleDao.get();
+        List<Role> roles=roleDao.getAll();
         int size = roles.size();
         Assert.assertEquals(1,size);
     }
@@ -40,10 +40,10 @@ public class RoleDaoTest {
         Assert.assertEquals(true,status);
     }
 
-    /*@Test
+    @Test
     public void getById()
     {
-        Role role = roleDao.get("1");
-        Assert.assertNotNull(true,role);
-    }*/
+        Role role = roleDao.getById("1");
+        Assert.assertNotNull(role);
+    }
 }
