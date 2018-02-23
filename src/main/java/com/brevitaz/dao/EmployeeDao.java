@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface EmployeeDao
 {
-    public boolean insert(Employee employee) throws IOException;
-    public List<Employee> getAll() throws IOException;
-    public boolean update(Employee employee,String id) throws IOException;
-    public boolean delete(String id) throws IOException;
-    public Employee getById(String id) throws IOException;
-    public Employee getByUsername(String username, String password) throws IOException;
+    public boolean insert(Employee employee);
+    public List<Employee> getAll();
+    public boolean update(Employee employee,String id);
+    public boolean delete(String id);
+    public Employee getById(String id);
+    public Employee getByUsernameAndPassword(String username, String password);
 }
