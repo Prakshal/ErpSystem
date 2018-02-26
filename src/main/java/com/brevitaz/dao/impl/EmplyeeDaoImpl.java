@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
@@ -48,6 +49,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 employee.getId());
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         try {
+            employee.setPassword(Base64.getEncoder().encodeToString(employee.getPassword().getBytes()));
             String json = objectMapper.writeValueAsString(employee);
             request.source(json, XContentType.JSON);
             IndexResponse response = esConfig.getEsClient().index(request);
