@@ -1,27 +1,25 @@
 package com.brevitaz.controller;
 
-import com.brevitaz.service.LogInService;
+import com.brevitaz.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.Base64;
 
-@Controller
-@RequestMapping("/")
+@RestController
+@RequestMapping("/api")
 
-public class LogInController {
+public class AuthenticationController {
 
     @Autowired
-    LogInService logInService;
+    AuthenticationService authenticationService;
 
-    @RequestMapping(value = "/")
+   /* @RequestMapping(value = "/")
     public String getLogin()
     {
         return "login";
-    }
+    }*/
 
     /*@RequestMapping(value = "/welcome")
     public String getWelcome()
@@ -31,7 +29,7 @@ public class LogInController {
 
     @RequestMapping(value = "/login" ,method = {RequestMethod.POST})
     public @ResponseBody ResponseEntity<String> login(@RequestParam("username") String username, @RequestParam("password") String password){
-       return logInService.login(username,password);
+        return authenticationService.login(username,password);
     }
 
     @RequestMapping(value = "/logout",method = {RequestMethod.POST})
