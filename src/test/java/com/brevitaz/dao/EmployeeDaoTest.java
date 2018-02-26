@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import java.io.IOException;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -15,44 +14,101 @@ import java.util.List;
 public class EmployeeDaoTest {
 
     @Autowired
-    EmployeeDao employeeDao;
+    EmployeeDao employeeDao ;
+
+
 
     @Test
     public void createTest(){
         Employee employee = new Employee();
-        employee.setId("2");
-        employee.setFirstName("mnwruierjkewj");
-        employee.setLastName("pqrst");
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
 
-        boolean status = employeeDao.insert(employee);
-        Assert.assertEquals(true,status);
+        employeeDao.insert(employee);
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
+        Assert.assertEquals(employee1.getLastName(),employee.getLastName());
+
+        employeeDao.delete("1");
     }
 
     @Test
     public void getAllTest(){
-        List<Employee> get = employeeDao.getAll();
-        int size = get.size();
-        Assert.assertEquals(1,size);
+
+        Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+
+        Employee employee1 = new Employee();
+        employee1.setId("2");
+        employee1.setFirstName("mno");
+        employee1.setLastName("abc");
+
+        Employee employee2 = new Employee();
+        employee2.setId("3");
+        employee2.setFirstName("mno");
+        employee2.setLastName("abc");
+
+        employeeDao.insert(employee);
+        employeeDao.insert(employee1);
+        employeeDao.insert(employee2);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<Employee> employees = employeeDao.getAll();
+        int size = employees.size();
+        Assert.assertEquals(3,size);
+
+        employeeDao.delete("1");
+        employeeDao.delete("2");
+        employeeDao.delete("3");
        }
 
     @Test
     public void get(){
-        Employee employee = employeeDao.getById("1");
-        Assert.assertNotNull(employee);
+
+        Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employeeDao.insert(employee);
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
+        employeeDao.delete("1");
     }
 
     @Test
     public void update(){
         Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employeeDao.insert(employee);
         employee.setFirstName("abcd");
         employee.setEmailId("majhgdj@gmaol.com");
-        boolean status = employeeDao.update(employee,"1");
-        Assert.assertEquals(true,status);
+        employeeDao.update(employee,"1");
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertEquals(employee1.getEmailId(),employee.getEmailId());
+        employeeDao.delete("1");
+
     }
 
     @Test
-    public void delete(){
-        boolean status=employeeDao.delete("1");
-        Assert.assertEquals(true,status);
+    public void delete()
+    {
+        Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employeeDao.insert(employee);
+        employeeDao.delete("1");
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertNotEquals(true,employee1);
     }
 }

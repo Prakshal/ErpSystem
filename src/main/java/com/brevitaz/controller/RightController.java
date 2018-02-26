@@ -22,7 +22,6 @@ public class RightController
 
 	@RequestMapping(method={RequestMethod.POST})
 	public boolean create(@RequestBody Right right){
-		System.out.println("Right created");
 		return rightDao.insert(right);
 	}
 
