@@ -15,7 +15,7 @@ import java.util.List;
 @SpringBootTest
 public class RoleDaoTest {
     @Autowired
-    RoleDao roleDao;
+    private RoleDao roleDao;
 
     @Test
     public void insert() throws IOException {

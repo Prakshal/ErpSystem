@@ -1,4 +1,58 @@
 package com.brevitaz.model;
 
-public class CustomEmployee {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+public class CustomEmployee extends Employee implements UserDetails
+{
+    public CustomEmployee(Employee employee)
+    {
+        super(employee);
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+       List<SimpleGrantedAuthority> collect = getRole()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_"+role.getName()))
+                .collect(Collectors.toList());
+
+       return collect;
+
+    }
+
+    @Override
+    public String getPassword() {
+        return super.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return super.getFirstName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

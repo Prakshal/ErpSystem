@@ -143,7 +143,6 @@ public class TenantDaoImpl implements TenantDao
                 tenant = objectMapper.readValue(hit.getSourceAsString(), Tenant.class);
                 tenants.add(tenant);
             }
-
             return tenants;
     }
 

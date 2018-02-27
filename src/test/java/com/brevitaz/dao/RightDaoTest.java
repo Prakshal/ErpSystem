@@ -17,7 +17,7 @@ import java.util.List;
 public class RightDaoTest {
 
     @Autowired
-    RightDao rightDao;
+    private RightDao rightDao;
 
     @Test
     public void create() throws IOException {

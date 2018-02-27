@@ -16,7 +16,7 @@ import java.util.List;
 public class TenantDaoTest {
 
     @Autowired
-    TenantDao tenantDao;
+    private TenantDao tenantDao;
 
     @Test
     public  void create() throws IOException {
