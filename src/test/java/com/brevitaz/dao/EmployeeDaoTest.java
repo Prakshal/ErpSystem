@@ -74,7 +74,7 @@ public class EmployeeDaoTest {
        }
 
     @Test
-    public void get(){
+    public void getTest(){
 
         Employee employee = new Employee();
         employee.setId("1");
@@ -88,7 +88,7 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void update(){
+    public void updateTest(){
         Employee employee = new Employee();
         employee.setId("1");
         employee.setFirstName("abc");
@@ -106,7 +106,7 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void delete()
+    public void deleteTest()
     {
         Employee employee = new Employee();
         employee.setId("1");

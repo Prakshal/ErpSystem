@@ -20,7 +20,7 @@ public class TenantDaoTest {
     TenantDao tenantDao;
 
     @Test
-    public  void create(){
+    public  void createTest(){
         Tenant tenant = new Tenant();
         tenant.setId("1");
         tenant.setName("abc");
@@ -31,7 +31,7 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void getAll(){
+    public void getAllTest(){
         Tenant tenant = new Tenant();
         tenant.setId("1");
         tenant.setName("abc");
@@ -50,7 +50,7 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void getById(){
+    public void getByIdTest(){
         Tenant tenant = new Tenant();
         tenant.setId("1");
         tenant.setName("abc");
@@ -62,7 +62,7 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void update(){
+    public void updateTest(){
         Tenant tenant = new Tenant();
         tenant.setId("1");
         tenant.setName("abc");
@@ -82,7 +82,7 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void getByName(){
+    public void getByNameTest(){
         Tenant tenant = new Tenant();
         tenant.setId("1");
         tenant.setName("abc");
@@ -106,7 +106,7 @@ public class TenantDaoTest {
     }
 
     @Test
-    public void delete(){
+    public void deleteTest(){
         Tenant tenant = new Tenant();
         tenant.setId("1");
         tenant.setName("abc");
