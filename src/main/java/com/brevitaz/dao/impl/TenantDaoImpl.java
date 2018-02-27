@@ -130,7 +130,7 @@ public class TenantDaoImpl implements TenantDao
         sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("name.keyword", name)));
         request.source(sourceBuilder);
 
-        SearchResponse response = null;
+        SearchResponse response;
         List<Tenant> tenants=new ArrayList<>();
 
             response = esConfig.getEsClient().search(request);
@@ -155,8 +155,6 @@ public class TenantDaoImpl implements TenantDao
                 id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
-
-        System.out.println(response.status());
         if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;

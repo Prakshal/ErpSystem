@@ -1,17 +1,35 @@
 package com.brevitaz.controller;
 
-import com.brevitaz.model.Employee;
+import com.brevitaz.service.LogInService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.io.IOException;
+
+@Controller
 @RequestMapping("/")
 
 public class LogInController {
-    @RequestMapping(value = "/login" ,method = {RequestMethod.POST})
-    public boolean login(@PathVariable String unma,String pass)
+
+    @Autowired
+    LogInService logInService;
+
+    @RequestMapping(value = "/")
+    public String getLogin()
     {
-        System.out.println("Login Successfully");
-        return true;
+        return "login";
+    }
+
+    @RequestMapping(value = "/welcome")
+    public String getWelcome()
+    {
+        return "welcome";
+    }
+
+    @RequestMapping(value = "/login" ,method = {RequestMethod.POST})
+    public @ResponseBody String login(@RequestParam("username") String username, @RequestParam("password") String password) throws IOException {
+       return logInService.login(username,password);
     }
 
     @RequestMapping(value = "/logout",method = {RequestMethod.POST})

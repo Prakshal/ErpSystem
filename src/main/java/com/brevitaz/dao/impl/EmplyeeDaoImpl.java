@@ -17,17 +17,23 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 @Repository()
@@ -107,6 +113,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
                 id);
 
         DeleteResponse response = esConfig.getEsClient().delete(request);
+        response.status();
         if(response.status()==RestStatus.NOT_FOUND)
         {
             return true;
@@ -133,5 +140,24 @@ public class EmplyeeDaoImpl implements EmployeeDao
         {
             return null;
         }
+    }
+
+    @Override
+    public Employee getByUsername(String username, String password) throws IOException {
+        SearchRequest request = new SearchRequest(INDEX_NAME);
+        request.types(TYPE_NAME);
+
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(QueryBuilders.boolQuery().must(matchQuery("emailId.keyword", username)).must(matchQuery("password.keyword", password)));
+        request.source(sourceBuilder);
+
+        SearchResponse response = esConfig.getEsClient().search(request);
+        SearchHit[] hits = response.getHits().getHits();
+        Employee employee = null;
+
+        for(SearchHit hit : hits)
+            employee=objectMapper.readValue(hit.getSourceAsString(), Employee.class);
+
+        return employee;
     }
 }

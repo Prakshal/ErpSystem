@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ESConfig {
 
     private RestHighLevelClient esClient;
-
+    @Bean
     public RestHighLevelClient getEsClient() {
         if (esClient == null) {
             this.esClient = new RestHighLevelClient(

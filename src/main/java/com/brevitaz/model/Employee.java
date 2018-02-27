@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.multipart.MultipartFile;
 
-@Component
+@EntityScan
 public class Employee {
     private String id;
     private String firstName;
