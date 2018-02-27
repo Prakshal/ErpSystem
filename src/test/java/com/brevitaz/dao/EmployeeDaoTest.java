@@ -24,7 +24,7 @@ public class EmployeeDaoTest {
         employee.setId("1");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
-
+        employee.setPassword("abcd");
         employeeDao.insert(employee);
         Employee employee1=employeeDao.getById("1");
         Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
@@ -40,16 +40,19 @@ public class EmployeeDaoTest {
         employee.setId("1");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
+        employee.setPassword("abcd");
 
         Employee employee1 = new Employee();
         employee1.setId("2");
         employee1.setFirstName("mno");
         employee1.setLastName("abc");
+        employee1.setPassword("abcd");
 
         Employee employee2 = new Employee();
         employee2.setId("3");
         employee2.setFirstName("mno");
         employee2.setLastName("abc");
+        employee2.setPassword("abcd");
 
         employeeDao.insert(employee);
         employeeDao.insert(employee1);
@@ -77,6 +80,7 @@ public class EmployeeDaoTest {
         employee.setId("1");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
+        employee.setPassword("abcd");
         employeeDao.insert(employee);
         Employee employee1=employeeDao.getById("1");
         Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
@@ -89,12 +93,14 @@ public class EmployeeDaoTest {
         employee.setId("1");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
+        employee.setPassword("abcd");
         employeeDao.insert(employee);
-        employee.setFirstName("abcd");
-        employee.setEmailId("majhgdj@gmaol.com");
-        employeeDao.update(employee,"1");
+        Employee employee2 = new Employee();
+        employee2.setFirstName("abcd");
+        employee2.setEmailId("majhgdj@gmaol.com");
+        employeeDao.update(employee2,"1");
         Employee employee1=employeeDao.getById("1");
-        Assert.assertEquals(employee1.getEmailId(),employee.getEmailId());
+        Assert.assertEquals(employee1.getEmailId(),employee2.getEmailId());
         employeeDao.delete("1");
 
     }
@@ -106,6 +112,7 @@ public class EmployeeDaoTest {
         employee.setId("1");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
+        employee.setPassword("abcd");
         employeeDao.insert(employee);
         employeeDao.delete("1");
         Employee employee1=employeeDao.getById("1");
