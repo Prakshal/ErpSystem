@@ -44,8 +44,8 @@ public class EmployeeDaoTest {
     @Test
     public void update(){
         Employee employee = new Employee();
-        employee.setFirstName("abcd");
-        employee.setEmailId("majhgdj@gmaol.com");
+        employee.setFirstName("Anoushka");
+        employee.setEmailId("abcd@gmail.com");
         boolean status = employeeDao.update(employee,"1");
         Assert.assertEquals(true,status);
     }
