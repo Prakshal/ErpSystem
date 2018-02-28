@@ -56,7 +56,7 @@ public class RoleDaoTest {
         roleDao.create(role);
         roleDao.delete("1");
         Role role1 = roleDao.getById("1");
-        Assert.assertNotEquals(true,role1);
+        Assert.assertNull(role1);
     }
 
     @Test

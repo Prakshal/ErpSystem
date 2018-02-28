@@ -80,7 +80,7 @@ public class RightDaoTest {
         rightDao.insert(right);
         rightDao.delete("1");
         Right right1=rightDao.getById("1");
-        Assert.assertNotEquals(true,right1);
+        Assert.assertNull(right1);
     }
 
     @Test

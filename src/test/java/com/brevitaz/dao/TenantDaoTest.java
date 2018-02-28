@@ -113,6 +113,6 @@ public class TenantDaoTest {
         tenantDao.insert(tenant);
         tenantDao.delete("1");
         Tenant tenant1=tenantDao.getById("1");
-        Assert.assertNotEquals(true,tenant1);
+        Assert.assertNull(tenant1);
     }
 }

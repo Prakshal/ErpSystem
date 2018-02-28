@@ -2,16 +2,26 @@ package com.brevitaz.config;
 
 import javafx.scene.NodeBuilder;
 import org.apache.http.HttpHost;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.node.Node;
+import org.elasticsearch.node.NodeValidationException;
+import org.elasticsearch.test.ESIntegTestCase;
+import org.elasticsearch.transport.Netty4Plugin;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+
+import static java.util.Arrays.asList;
+import static org.elasticsearch.test.ESIntegTestCase.client;
+//import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 
 @Configuration
 public class ESConfig {
@@ -24,7 +34,9 @@ public class ESConfig {
     @Value("${elasticsearch.scheme}")
     String scheme;
 
-    private EmbeddedElasticsearchServer eserver;
+    /*@Value("$(elasticsearch.clustername")
+    String clusterName;*/
+
     private RestHighLevelClient esClient;
 
     @Bean
@@ -43,23 +55,19 @@ public class ESConfig {
 
     }
 
-
-    /*@Override
-    public Statement apply(Statement statement, Description description) {
-        return new Statement() {
-            @Override
-            public void evaluate() throws Throwable {
-                eserver = new EmbeddedElasticsearchServer();
-                eserver.start();
-
-                esClient = eserver.getClient();
-                loader = new ESIndicesLoader(esClient, 1, 1);
-                try {
-                    base.evaluate(); // execute the unit test
-                } finally {
-                    eserver.shutdown();
-                }
-            }
-        };
+   /* @Bean
+    public Node elasticSearchTestNode() throws NodeValidationException {
+        Node node = (
+                Settings.builder()
+                        .put("http.type", "netty4")
+                        .put("http.type", "netty4")
+                        .put("http.enabled", "true")
+                        .put("path.home", "elasticsearch-data")
+                        .build(),
+                asList(Netty4Plugin.class));
+        node.start();
+        return node;
     }*/
+
+
 }
