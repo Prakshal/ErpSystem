@@ -2,20 +2,32 @@ package com.brevitaz.dao;
 
 import com.brevitaz.model.Address;
 import com.brevitaz.model.Tenant;
+import com.carrotsearch.randomizedtesting.RandomizedRunner;
+import com.carrotsearch.randomizedtesting.annotations.ThreadLeakScope;
 import org.junit.Assert;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 
 import java.io.IOException;
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(RandomizedRunner.class)
+@ThreadLeakScope(ThreadLeakScope.Scope.NONE)
 @SpringBootTest
 public class TenantDaoTest {
 
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
     @Autowired
     private TenantDao tenantDao;
 
@@ -40,8 +52,13 @@ public class TenantDaoTest {
         Tenant tenant1 = new Tenant();
         tenant1.setId("2");
         tenant1.setName("mno");
-        tenantDao.insert(tenant);
+        tenantDao.insert(tenant1);
 
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Tenant> tenants = tenantDao.getAll();
         int size = tenants.size();
         Assert.assertEquals(2,size);
@@ -91,7 +108,7 @@ public class TenantDaoTest {
         Tenant tenant1 = new Tenant();
         tenant1.setId("2");
         tenant1.setName("abc");
-        tenantDao.insert(tenant);
+        tenantDao.insert(tenant1);
 
         try {
             Thread.sleep(5000);
