@@ -21,7 +21,7 @@ public class RightDaoTest {
     private RightDao rightDao;
 
     @Test
-    public void create(){
+    public void createTest(){
         Right right = new Right();
         right.setId("1");
         right.setName("mnop");
@@ -32,7 +32,7 @@ public class RightDaoTest {
     }
 
     @Test
-    public void getAll(){
+    public void getAllTest(){
         Right right = new Right();
         right.setId("1");
         right.setName("mnop");
@@ -58,7 +58,7 @@ public class RightDaoTest {
     }
 
     @Test
-    public void update(){
+    public void updateTest(){
         Right right = new Right();
         right.setId("1");
         right.setName("mnop");
@@ -73,18 +73,18 @@ public class RightDaoTest {
     }
 
     @Test
-    public void delete(){
+    public void deleteTest(){
         Right right = new Right();
         right.setId("1");
         right.setName("mnop");
         rightDao.insert(right);
         rightDao.delete("1");
         Right right1=rightDao.getById("1");
-        Assert.assertNotEquals(true,right1);
+        Assert.assertNull(right1);
     }
 
     @Test
-    public void getById(){
+    public void getByIdTest(){
         Right right = new Right();
         right.setId("1");
         right.setName("mnop");

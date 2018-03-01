@@ -18,7 +18,7 @@ public class RoleDaoTest {
     private RoleDao roleDao;
 
     @Test
-    public void insert(){
+    public void insertTest(){
         Role role = new Role();
         role.setId("1");
         role.setName("abckdjas");
@@ -29,7 +29,7 @@ public class RoleDaoTest {
     }
 
     @Test
-    public void getAll(){
+    public void getAllTest(){
         Role role = new Role();
         role.setId("1");
         role.setName("abckdjas");
@@ -49,18 +49,18 @@ public class RoleDaoTest {
     }
 
     @Test
-    public void delete(){
+    public void deleteTest(){
         Role role = new Role();
         role.setId("1");
         role.setName("abckdjas");
         roleDao.create(role);
         roleDao.delete("1");
         Role role1 = roleDao.getById("1");
-        Assert.assertNotEquals(true,role1);
+        Assert.assertNull(role1);
     }
 
     @Test
-    public void getById()
+    public void getByIdTest()
     {
         Role role = new Role();
         role.setId("1");

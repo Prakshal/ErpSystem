@@ -1,6 +1,8 @@
 package com.brevitaz.dao;
 
 import com.brevitaz.model.Employee;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.test.ESIntegTestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +13,15 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class EmployeeDaoTest {
+public class EmployeeDaoTest extends ESIntegTestCase {
 
+   /* @Override
+    protected Settings nodeSettings(int nodeOrdinal) {
+        return Settings.builder().put(super.nodeSettings(nodeOrdinal))
+                .put("node.mode", "network")
+                .build();
+    }*/
+    
     @Autowired
     EmployeeDao employeeDao ;
 
@@ -74,7 +83,7 @@ public class EmployeeDaoTest {
        }
 
     @Test
-    public void get(){
+    public void getTest(){
 
         Employee employee = new Employee();
         employee.setId("1");
@@ -88,13 +97,14 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void update(){
+    public void updateTest(){
         Employee employee = new Employee();
         employee.setId("1");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
         employee.setPassword("abcd");
         employeeDao.insert(employee);
+
         Employee employee2 = new Employee();
         employee2.setFirstName("abcd");
         employee2.setEmailId("majhgdj@gmaol.com");
@@ -106,7 +116,7 @@ public class EmployeeDaoTest {
     }
 
     @Test
-    public void delete()
+    public void deleteTest()
     {
         Employee employee = new Employee();
         employee.setId("1");
@@ -116,6 +126,6 @@ public class EmployeeDaoTest {
         employeeDao.insert(employee);
         employeeDao.delete("1");
         Employee employee1=employeeDao.getById("1");
-        Assert.assertNotEquals(true,employee1);
+        Assert.assertNull(employee1);
     }
 }
