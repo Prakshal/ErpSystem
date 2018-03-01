@@ -1,18 +1,17 @@
-package com.brevitaz.SpringSecurityWithJwt.controller;
+package com.brevitaz.controller;
 
-import com.brevitaz.SpringSecurityWithJwt.dao.UserDao;
-import com.brevitaz.SpringSecurityWithJwt.model.JwtUser;
-import com.brevitaz.SpringSecurityWithJwt.security.JwtGenerator;
+import com.brevitaz.model.Employee;
+import com.brevitaz.security.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/token")
 public class TokenController
 {
-    @Autowired
-    private UserDao userDao;
-
     private JwtGenerator jwtGenerator;
 
     public TokenController(JwtGenerator jwtGenerator) {
@@ -20,9 +19,8 @@ public class TokenController
     }
 
     @PostMapping
-    public String generate(@RequestBody final JwtUser jwtUser)
+    public String generate(@RequestBody final Employee employee)
     {
-        //JwtUser jwtUser1=userDao.getById(jwtUser.getId());
-        return jwtGenerator.generate(jwtUser);
+        return jwtGenerator.generate(employee);
     }
 }

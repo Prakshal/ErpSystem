@@ -1,25 +1,24 @@
-package com.brevitaz.SpringSecurityWithJwt.security;
+package com.brevitaz.security;
 
-import com.brevitaz.SpringSecurityWithJwt.model.JwtUser;
-import com.brevitaz.SpringSecurityWithJwt.model.Right;
-import com.brevitaz.SpringSecurityWithJwt.model.Role;
+import com.brevitaz.model.Employee;
+import com.brevitaz.model.Right;
+import com.brevitaz.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap.get;
 
 @Component
 public class JwtValidator
 {
     private String secret = "brevitaz";
 
-    public JwtUser validate(String token)
+    public Employee validate(String token)
     {
-        JwtUser jwtUser=null;
+        Employee employee=null;
         try
         {
             Claims body = Jwts.parser()
@@ -27,22 +26,27 @@ public class JwtValidator
                     .parseClaimsJws(token)
                     .getBody();
 
-            jwtUser=new JwtUser();
+            employee=new Employee();
 
-            jwtUser.setUserName(body.getSubject());
+            employee.setEmailId(body.getSubject());
 
-            jwtUser.setPassword((String)body.get("password"));
+            employee.setPassword((String)body.get("password"));
 
-            jwtUser.setId(Long.parseLong((String)body.get("userId")));
+            employee.setId((String)body.get("id"));
+
+            employee.setFirstName((String)body.get("firstName"));
+
+            employee.setLastName((String)body.get("lastName"));
 
             List<LinkedHashMap<String,Object>> roles = (List<LinkedHashMap<String,Object>>)body.get("role");
 //            List<LinkedHashMap<String,String>> rights = (List<LinkedHashMap<String,String>>) roles.get(0).get("rights");
+
 
             List<Role> roleList = roles.stream().map(role -> {
                 List<Right> rights = ((List<LinkedHashMap<String, String>>) role.get("rights"))
                         .stream().map(right -> new Right(right.get("id"), right.get("name"))).collect(Collectors.toList());
                 Role r = new Role();
-                r.setRights(rights);
+                r.setRight(rights);
                 r.setName(role.get("name").toString());
                 r.setId(role.get("id").toString());
                 return r;
@@ -76,13 +80,13 @@ public class JwtValidator
             //List<Role> rolesList = roles.stream().map(role -> new Role(role.get("id"),role.get("name"),role.get("role").)).collect(Collectors.toList());
 
 //            jwtUser.setRoles(roles1);
-            jwtUser.setRoles(roleList);
-            System.out.println(jwtUser.getRoles());
+            employee.setRole(roleList);
+            System.out.println(employee.getRole());
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
-        return jwtUser;
+        return employee;
     }
 }

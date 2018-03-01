@@ -1,4 +1,4 @@
-package com.brevitaz.SpringSecurityWithJwt.security;
+package com.brevitaz.security;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

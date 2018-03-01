@@ -1,12 +1,13 @@
 package com.brevitaz.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Role
 {
     private String id;
     private String name;
-    private Right[] right;
+    private List<Right> right;
 
     public String getId() {
         return id;
@@ -24,11 +25,11 @@ public class Role
         this.name = name;
     }
 
-    public Right[] getRight() {
+    public List<Right> getRight() {
         return right;
     }
 
-    public void setRight(Right[] right) {
+    public void setRight(List<Right> right) {
         this.right = right;
     }
 
@@ -37,7 +38,7 @@ public class Role
         return "Role{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", right=" + Arrays.toString(right) +
+                ", right=" + right +
                 '}';
     }
 }

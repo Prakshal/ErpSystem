@@ -1,7 +1,6 @@
-package com.brevitaz.SpringSecurityWithJwt.security;
+package com.brevitaz.security;
 
-
-import com.brevitaz.SpringSecurityWithJwt.model.JwtUser;
+import com.brevitaz.model.Employee;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,18 +10,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtGenerator
 {
-    public String generate(JwtUser jwtUser)
+    public String generate(Employee employee)
     {
         Claims claims = Jwts.claims()
-                .setSubject(jwtUser.getUserName());
+                .setSubject(employee.getEmailId());
 
-        claims.put("password",jwtUser.getPassword());
-        claims.put("userId",String.valueOf(jwtUser.getId()));
-        claims.put("role",jwtUser.getRoles());
-/*        StringBuilder stringBuilder=new StringBuilder();
-        jwtUser.getRoles().forEach(role -> role.getRights().forEach(right -> stringBuilder.append(right.getName()).append(",")));
-        String subString = stringBuilder.toString().substring(0, stringBuilder.length() - 1);
-        claims.put("authority",subString);*/
+        claims.put("firstName",employee.getFirstName());
+        claims.put("lastName",employee.getLastName());
+        claims.put("password",employee.getPassword());
+        claims.put("id",employee.getId());
+        claims.put("role",employee.getRole());
 
         return Jwts.builder()
                 .setClaims(claims)

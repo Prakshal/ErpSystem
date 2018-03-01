@@ -5,6 +5,12 @@ public class Right
 	private String id;
 	private String name;
 
+	public Right() {
+	}
+
+	public Right(String id, String name) {
+	}
+
 	public String getId() {
 		return id;
 	}
