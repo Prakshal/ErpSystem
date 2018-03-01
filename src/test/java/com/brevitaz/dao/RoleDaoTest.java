@@ -15,35 +15,60 @@ import java.util.List;
 @SpringBootTest
 public class RoleDaoTest {
     @Autowired
-    RoleDao roleDao;
+    private RoleDao roleDao;
 
     @Test
-    public void insert(){
+    public void insertTest(){
         Role role = new Role();
-        role.setId("2");
+        role.setId("1");
         role.setName("abckdjas");
-
-        boolean status = roleDao.create(role);
-        Assert.assertEquals(true,status);
+        roleDao.create(role);
+        Role role1=roleDao.getById("1");
+        Assert.assertEquals(role1.getName(),role.getName());
+        roleDao.delete("1");
     }
 
     @Test
-    public void getAll(){
-        List<Role> roles=roleDao.getAll();
+    public void getAllTest(){
+        Role role = new Role();
+        role.setId("1");
+        role.setName("abckdjas");
+        roleDao.create(role);
+
+        Role role1 = new Role();
+        role1.setId("2");
+        role1.setName("mno");
+        roleDao.create(role1);
+
+        List<Role> roles= roleDao.getAll();
         int size = roles.size();
-        Assert.assertEquals(1,size);
+        Assert.assertEquals(2,size);
+
+        roleDao.delete("1");
+        roleDao.delete("2");
     }
 
     @Test
-    public void delete(){
-        boolean status = roleDao.delete("1");
-        Assert.assertEquals(true,status);
+    public void deleteTest(){
+        Role role = new Role();
+        role.setId("1");
+        role.setName("abckdjas");
+        roleDao.create(role);
+        roleDao.delete("1");
+        Role role1 = roleDao.getById("1");
+        Assert.assertNull(role1);
     }
 
     @Test
-    public void getById()
+    public void getByIdTest()
     {
-        Role role = roleDao.getById("1");
-        Assert.assertNotNull(role);
+        Role role = new Role();
+        role.setId("1");
+        role.setName("abckdjas");
+        roleDao.create(role);
+        Role role1 = roleDao.getById("1");
+        Assert.assertNotNull(role1);
+        Assert.assertEquals(role1.getName(),role.getName());
+        roleDao.delete("1");
     }
 }

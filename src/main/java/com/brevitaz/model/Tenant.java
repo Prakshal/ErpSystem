@@ -77,4 +77,9 @@ public class Tenant {
                 ", contactPerson='" + contactPerson + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

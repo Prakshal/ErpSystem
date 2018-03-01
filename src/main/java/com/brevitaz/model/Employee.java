@@ -35,6 +35,18 @@ public class Employee {
     private boolean status;
     private List<Role> role;
 
+
+	public Employee() {
+	}
+
+	public Employee(Employee employee)
+	{
+		this.id=employee.getId();
+		this.firstName=employee.getFirstName();
+		this.password=employee.getPassword();
+		this.role=employee.getRole();
+	}
+
 	public String getId() {
 		return id;
 	}
