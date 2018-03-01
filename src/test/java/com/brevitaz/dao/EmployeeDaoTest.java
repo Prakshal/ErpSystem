@@ -1,31 +1,40 @@
 package com.brevitaz.dao;
 
 import com.brevitaz.model.Employee;
-import org.elasticsearch.common.settings.Settings;
+import com.carrotsearch.randomizedtesting.RandomizedRunner;
+import com.carrotsearch.randomizedtesting.annotations.ThreadLeakScope;
 import org.elasticsearch.test.ESIntegTestCase;
 import org.junit.Assert;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
+
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+
+@RunWith(RandomizedRunner.class)
+@ThreadLeakScope(ThreadLeakScope.Scope.NONE)
 @SpringBootTest
-public class EmployeeDaoTest extends ESIntegTestCase {
+public class EmployeeDaoTest {
 
-   /* @Override
-    protected Settings nodeSettings(int nodeOrdinal) {
-        return Settings.builder().put(super.nodeSettings(nodeOrdinal))
-                .put("node.mode", "network")
-                .build();
-    }*/
-    
+
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE= new SpringClassRule();
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
+
     @Autowired
-    EmployeeDao employeeDao ;
-
-
+    private EmployeeDao employeeDao;
 
     @Test
     public void createTest(){
