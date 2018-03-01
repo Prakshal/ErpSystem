@@ -16,32 +16,32 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeDao employeeDao;
 
     @Override
-    public boolean create(Employee employee) throws IOException {
+    public boolean create(Employee employee){
         return employeeDao.insert(employee);
     }
 
     @Override
-    public List<Employee> getAll() throws IOException {
+    public List<Employee> getAll() {
         return employeeDao.getAll();
     }
 
     @Override
-    public boolean update(Employee employee, String id) throws IOException {
+    public boolean update(Employee employee, String id){
         return employeeDao.update(employee,id);
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
+    public boolean delete(String id){
         return employeeDao.delete(id);
     }
 
     @Override
-    public Employee getById(String id) throws IOException {
+    public Employee getById(String id){
         return employeeDao.getById(id);
     }
 
     @Override
-    public Employee getByUsername(String username, String password) throws IOException {
-        return employeeDao.getByUsername(username,password);
+    public Employee getByUsernameAndPassword(String username, String password){
+        return employeeDao.getByUsernameAndPassword(username,password);
     }
 }

@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import java.io.IOException;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -15,44 +14,108 @@ import java.util.List;
 public class EmployeeDaoTest {
 
     @Autowired
-    private EmployeeDao employeeDao;
+    EmployeeDao employeeDao ;
+
+
 
     @Test
-    public void createTest() throws IOException {
+    public void createTest(){
         Employee employee = new Employee();
-        employee.setId("2");
-        employee.setFirstName("mnwruierjkewj");
-        employee.setLastName("pqrst");
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employee.setPassword("abcd");
+        employeeDao.insert(employee);
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
+        Assert.assertEquals(employee1.getLastName(),employee.getLastName());
 
-        boolean status = employeeDao.insert(employee);
-        Assert.assertEquals(true,status);
+        employeeDao.delete("1");
     }
 
     @Test
-    public void getAllTest() throws IOException {
-        List<Employee> get = employeeDao.getAll();
-        int size = get.size();
-        Assert.assertEquals(2,size);
+    public void getAllTest(){
+
+        Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employee.setPassword("abcd");
+
+        Employee employee1 = new Employee();
+        employee1.setId("2");
+        employee1.setFirstName("mno");
+        employee1.setLastName("abc");
+        employee1.setPassword("abcd");
+
+        Employee employee2 = new Employee();
+        employee2.setId("3");
+        employee2.setFirstName("mno");
+        employee2.setLastName("abc");
+        employee2.setPassword("abcd");
+
+        employeeDao.insert(employee);
+        employeeDao.insert(employee1);
+        employeeDao.insert(employee2);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        List<Employee> employees = employeeDao.getAll();
+        int size = employees.size();
+        Assert.assertEquals(3,size);
+
+        employeeDao.delete("1");
+        employeeDao.delete("2");
+        employeeDao.delete("3");
        }
 
     @Test
-    public void get() throws IOException {
-        Employee employee = employeeDao.getById("1");
-        Assert.assertNotNull(employee);
-    }
+    public void get(){
 
-    @Test
-    public void update() throws IOException {
         Employee employee = new Employee();
-        employee.setFirstName("abcd");
-        employee.setEmailId("majhgdj@gmaol.com");
-        boolean status = employeeDao.update(employee,"1");
-        Assert.assertEquals(true,status);
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employee.setPassword("abcd");
+        employeeDao.insert(employee);
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
+        employeeDao.delete("1");
     }
 
     @Test
-    public void delete() throws IOException {
-        boolean status=employeeDao.delete("1");
-        Assert.assertEquals(true,status);
+    public void update(){
+        Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employee.setPassword("abcd");
+        employeeDao.insert(employee);
+        Employee employee2 = new Employee();
+        employee2.setFirstName("abcd");
+        employee2.setEmailId("majhgdj@gmaol.com");
+        employeeDao.update(employee2,"1");
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertEquals(employee1.getEmailId(),employee2.getEmailId());
+        employeeDao.delete("1");
+
+    }
+
+    @Test
+    public void delete()
+    {
+        Employee employee = new Employee();
+        employee.setId("1");
+        employee.setFirstName("abc");
+        employee.setLastName("pqr");
+        employee.setPassword("abcd");
+        employeeDao.insert(employee);
+        employeeDao.delete("1");
+        Employee employee1=employeeDao.getById("1");
+        Assert.assertNotEquals(true,employee1);
     }
 }

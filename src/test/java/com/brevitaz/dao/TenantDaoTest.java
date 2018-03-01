@@ -1,5 +1,6 @@
 package com.brevitaz.dao;
 
+import com.brevitaz.model.Address;
 import com.brevitaz.model.Tenant;
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,46 +20,99 @@ public class TenantDaoTest {
     private TenantDao tenantDao;
 
     @Test
-    public  void create() throws IOException {
+    public  void create(){
         Tenant tenant = new Tenant();
-        tenant.setId("3");
+        tenant.setId("1");
         tenant.setName("abc");
-
-        boolean status = tenantDao.insert(tenant);
-        Assert.assertEquals(true,status);
+        tenantDao.insert(tenant);
+        Tenant tenant1 = tenantDao.getById("1");
+        Assert.assertEquals(tenant1.getName(),tenant.getName());
+        tenantDao.delete("1");
     }
 
     @Test
-    public void getAll() throws IOException {
-        List<Tenant> tenants = tenantDao.tenants();
-        int size = tenants.size();
-        Assert.assertEquals(1,size);
-    }
-
-    @Test
-    public void getById() throws IOException {
-        Tenant tenant = tenantDao.getById("1");
-        Assert.assertNotNull(tenant);
-    }
-
-    @Test
-    public void update() throws IOException {
+    public void getAll(){
         Tenant tenant = new Tenant();
-        tenant.setName("iwwudya");
-        boolean status=tenantDao.update(tenant,"1");
-        Assert.assertEquals(true,status);
+        tenant.setId("1");
+        tenant.setName("abc");
+        tenantDao.insert(tenant);
+
+        Tenant tenant1 = new Tenant();
+        tenant1.setId("2");
+        tenant1.setName("mno");
+        tenantDao.insert(tenant);
+
+        List<Tenant> tenants = tenantDao.getAll();
+        int size = tenants.size();
+        Assert.assertEquals(2,size);
+        tenantDao.delete("1");
+        tenantDao.delete("2");
     }
 
     @Test
-    public void getByName() throws IOException {
+    public void getById(){
+        Tenant tenant = new Tenant();
+        tenant.setId("1");
+        tenant.setName("abc");
+        tenantDao.insert(tenant);
+        Tenant tenant1 = tenantDao.getById("1");
+        Assert.assertNotNull(tenant1);
+        Assert.assertEquals(tenant1.getName(),tenant.getName());
+        tenantDao.delete("1");
+    }
+
+    @Test
+    public void update(){
+        Tenant tenant = new Tenant();
+        tenant.setId("1");
+        tenant.setName("abc");
+        tenantDao.insert(tenant);
+
+        Tenant tenant1 = new Tenant();
+        tenant1.setName("iwwudya");
+        Address address=new Address();
+        address.setCity("Ahmedabad");
+        tenant1.setAddress(address);
+        tenantDao.update(tenant1,"1");
+
+        Tenant tenant2=tenantDao.getById("1");
+        //Assert.assertEquals(tenant2.getAddress(),tenant1.getAddress());
+        Assert.assertEquals(tenant2.getName(),tenant1.getName());
+        tenantDao.delete("1");
+    }
+
+    @Test
+    public void getByName(){
+        Tenant tenant = new Tenant();
+        tenant.setId("1");
+        tenant.setName("abc");
+        tenantDao.insert(tenant);
+
+        Tenant tenant1 = new Tenant();
+        tenant1.setId("2");
+        tenant1.setName("abc");
+        tenantDao.insert(tenant);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Tenant> tenants = tenantDao.getByName("abc");
         int size = tenants.size();
         Assert.assertEquals(2,size);
+        tenantDao.delete("1");
+        tenantDao.delete("2");
     }
 
     @Test
-    public void delete() throws IOException {
-        boolean status = tenantDao.delete("1");
-        Assert.assertEquals(true,status);
+    public void delete(){
+        Tenant tenant = new Tenant();
+        tenant.setId("1");
+        tenant.setName("abc");
+        tenantDao.insert(tenant);
+        tenantDao.delete("1");
+        Tenant tenant1=tenantDao.getById("1");
+        Assert.assertNotEquals(true,tenant1);
     }
 }

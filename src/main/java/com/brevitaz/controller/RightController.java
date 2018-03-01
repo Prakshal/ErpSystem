@@ -21,31 +21,30 @@ public class RightController
 	private RightDao rightDao;
 
 	@RequestMapping(method={RequestMethod.POST})
-	public boolean create(@RequestBody Right right) throws IOException {
-		System.out.println("Right created");
+	public boolean create(@RequestBody Right right){
 		return rightDao.insert(right);
 	}
 
     @RequestMapping(method={RequestMethod.GET})
-    public List<Right> getAll() throws IOException// only to test
+    public List<Right> getAll()// only to test
     {
         return rightDao.getAll();
     }
 
     @RequestMapping(value = "/{id}",method={RequestMethod.PUT})
-    public boolean update(@RequestBody Right right,@PathVariable String id) throws IOException //only to test
+    public boolean update(@RequestBody Right right,@PathVariable String id) //only to test
     {
         return rightDao.update(right,id);
     }
 
     @RequestMapping(value = "/{id}",method={RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException //only to test
+    public boolean delete(@PathVariable String id) //only to test
     {
         return rightDao.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method={RequestMethod.GET})
-    public Right getById(@PathVariable String id) throws IOException //only to test
+    public Right getById(@PathVariable String id) //only to test
     {
        return rightDao.getById(id);
     }

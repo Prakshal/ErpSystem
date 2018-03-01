@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.List;
 
 public interface RoleDao {
-    public boolean create(Role role) throws IOException;
-    public List<Role> get() throws IOException;
-    public boolean delete(String id) throws IOException;
+    public boolean create(Role role);
+    public List<Role> getAll();
+    public Role getById(String id);
+    public boolean delete(String id);
 }

@@ -41,39 +41,51 @@ public class RightDaoImpl implements RightDao {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public boolean insert(Right right) throws IOException {
+    public boolean insert(Right right){
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
                 TYPE_NAME,
                 right.getId());
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            String json = objectMapper.writeValueAsString(right);
-            request.source(json, XContentType.JSON);
-            IndexResponse response = esConfig.getEsClient().index(request);
-            if (response.status() == RestStatus.OK)
-                return true;
-            else
-                return false;
+            try {
+                String json = objectMapper.writeValueAsString(right);
+                request.source(json, XContentType.JSON);
+                IndexResponse response = esConfig.getEsClient().index(request);
+                if (response.status() == RestStatus.OK)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return false;
     }
 
     @Override
-    public List<Right> getAll() throws IOException {
+    public List<Right> getAll() {
         List<Right> rights = new ArrayList<>();
         SearchRequest request = new SearchRequest(INDEX_NAME);
         request.types(TYPE_NAME);
+        try {
             SearchResponse response = esConfig.getEsClient().search(request);
             SearchHit[] hits = response.getHits().getHits();
             Right right;
-            for (SearchHit hit : hits)
-            {
-                right=objectMapper.readValue(hit.getSourceAsString(),Right.class);
+            for (SearchHit hit : hits) {
+                right = objectMapper.readValue(hit.getSourceAsString(), Right.class);
                 rights.add(right);
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         return rights;
     }
 
     @Override
-    public boolean update(Right right, String id) throws IOException {
+    public boolean update(Right right, String id){
         UpdateRequest request = new UpdateRequest(
                 INDEX_NAME,
                 TYPE_NAME,
@@ -81,6 +93,7 @@ public class RightDaoImpl implements RightDao {
         );
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         String json = null;
+        try {
             json = objectMapper.writeValueAsString(right);
             request.doc(json, XContentType.JSON);
             UpdateResponse response = esConfig.getEsClient().update(request);
@@ -88,34 +101,53 @@ public class RightDaoImpl implements RightDao {
                 return true;
             else
                 return false;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
+    public boolean delete(String id) {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
                 id
         );
-        DeleteResponse response = esConfig.getEsClient().delete(request);
-        if (response.status()==RestStatus.NOT_FOUND)
-            return true;
-        else
-            return false;
+        try {
+            DeleteResponse response = esConfig.getEsClient().delete(request);
+            if (response.status() == RestStatus.NOT_FOUND)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public Right getById(String id) throws IOException {
+    public Right getById(String id) {
         GetRequest request = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
                 id
         );
-        GetResponse response = esConfig.getEsClient().get(request);
-        Right right = objectMapper.readValue(response.getSourceAsString(),Right.class);
-        if(response.isExists())
-            return right;
-        else
-            return null;
+        try {
+            GetResponse response = esConfig.getEsClient().get(request);
+            Right right = objectMapper.readValue(response.getSourceAsString(), Right.class);
+            if (response.isExists())
+                return right;
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
