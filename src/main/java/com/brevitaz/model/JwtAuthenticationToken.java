@@ -1,4 +1,4 @@
-package com.brevitaz.SpringSecurityWithJwt.model;
+package com.brevitaz.model;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 

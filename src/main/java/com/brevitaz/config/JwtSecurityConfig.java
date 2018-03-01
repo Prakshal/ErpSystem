@@ -1,9 +1,9 @@
-package com.brevitaz.SpringSecurityWithJwt.config;
+package com.brevitaz.config;
 
-import com.brevitaz.SpringSecurityWithJwt.security.JwtAuthenticationEntryPoint;
-import com.brevitaz.SpringSecurityWithJwt.security.JwtAuthenticationProvider;
-import com.brevitaz.SpringSecurityWithJwt.security.JwtAuthenticationTokenFilter;
-import com.brevitaz.SpringSecurityWithJwt.security.JwtSucessHanndler;
+import com.brevitaz.security.JwtAuthenticationEntryPoint;
+import com.brevitaz.security.JwtAuthenticationProvider;
+import com.brevitaz.security.JwtAuthenticationTokenFilter;
+import com.brevitaz.security.JwtSucessHanndler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,6 @@ import java.util.Collections;
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter
 {
-
     @Autowired
     private JwtAuthenticationProvider authenticationProvider;
 
@@ -49,7 +48,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("**/rest/**").authenticated()
+                .authorizeRequests().antMatchers("**/api/**").authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()

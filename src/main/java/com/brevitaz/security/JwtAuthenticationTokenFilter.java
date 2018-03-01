@@ -1,6 +1,7 @@
-package com.brevitaz.SpringSecurityWithJwt.security;
+package com.brevitaz.security;
 
-import com.brevitaz.SpringSecurityWithJwt.model.JwtAuthenticationToken;
+
+import com.brevitaz.model.JwtAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;

@@ -18,18 +18,19 @@ public class EmployeeController
     @Autowired
     private EmployeeService employeeService;
 
+
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee){
         return employeeService.create(employee);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('READ','CREATE')")
     @RequestMapping(method = {RequestMethod.GET})
     public List<Employee> getAll(){
         return employeeService.getAll();
     }
 
-    @PreAuthorize("hasAnyRole('employee')")
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public boolean update(@RequestBody Employee employee,@PathVariable String id){
         return employeeService.update(employee,id);
@@ -41,14 +42,15 @@ public class EmployeeController
     }
 
 
-    @PreAuthorize("hasAnyRole('admin')")
+    @PreAuthorize("hasAuthority('READ')")
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public Employee getById(@PathVariable String id){
         return employeeService.getById(id);
     }
 
-    @RequestMapping(value = "/username/{username}", method = {RequestMethod.GET}) // just to test
-    public Employee getByUsernameAndPassword(@PathVariable String username, String password){
-             return employeeService.getByUsernameAndPassword(username,password);
+    @RequestMapping(value = "/msg/{msg}", method = RequestMethod.GET)
+    public String msg(@PathVariable String msg)
+    {
+        return msg;
     }
 }

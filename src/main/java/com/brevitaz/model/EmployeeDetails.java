@@ -1,26 +1,29 @@
-package com.brevitaz.SpringSecurityWithJwt.model;
+package com.brevitaz.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-public class JwtUserDetails implements UserDetails
+public class EmployeeDetails implements UserDetails
 {
-    private String userName;
+    private String firstName;
+    private String lastName;
+    private String emailID;
     private String token;
-    private long id;
+    private String id;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUserDetails(String userName, String password, long id, String token, List<GrantedAuthority> grantedAuthorities)
+    public EmployeeDetails(String id,String firstName, String lastName, String password, String emailId,String token, List<GrantedAuthority> grantedAuthorities)
     {
-        this.userName=userName;
+        this.id=id;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.emailID=emailId;
         this.authorities=grantedAuthorities;
         this.token=token;
-        this.id=id;
         this.password=password;
     }
 
@@ -36,8 +39,9 @@ public class JwtUserDetails implements UserDetails
 
     @Override
     public String getUsername() {
-        return userName;
+        return null;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -59,15 +63,23 @@ public class JwtUserDetails implements UserDetails
         return true;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmailID() {
+        return emailID;
     }
 
     public String getToken() {
         return token;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }
