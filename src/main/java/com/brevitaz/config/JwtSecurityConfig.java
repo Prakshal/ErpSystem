@@ -48,7 +48,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("**/api/**").authenticated()
+                .authorizeRequests().antMatchers("**/employee/**").authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()

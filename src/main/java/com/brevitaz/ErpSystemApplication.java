@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @ComponentScan(value = "com.brevitaz")
 public class ErpSystemApplication
 {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ErpSystemApplication.class, args);
 	}
