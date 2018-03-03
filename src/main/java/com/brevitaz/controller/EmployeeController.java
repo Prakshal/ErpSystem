@@ -17,7 +17,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @PreAuthorize("hasAuthority('CREATE')")
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee) {
         return employeeService.create(employee);
@@ -29,7 +28,6 @@ public class EmployeeController {
         return employeeService.getAll();
     }
 
-    @PreAuthorize("hasAuthority('UPDATE')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public boolean update(@RequestBody Employee employee, @PathVariable String id) {
         return employeeService.update(employee, id);

@@ -2,7 +2,6 @@ package com.brevitaz.controller;
 
 import com.brevitaz.dao.RightDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,41 +20,35 @@ public class RightController
 	@Autowired
 	private RightDao rightDao;
 
-    @PreAuthorize("hasAuthority('CREATE')")
 	@RequestMapping(method={RequestMethod.POST})
 	public boolean create(@RequestBody Right right){
 		return rightDao.insert(right);
 	}
 
-    @PreAuthorize("hasAuthority('READ')")
     @RequestMapping(method={RequestMethod.GET})
     public List<Right> getAll()// only to test
     {
         return rightDao.getAll();
     }
 
-    @PreAuthorize("hasAuthority('UPDATE')")
     @RequestMapping(value = "/{id}",method={RequestMethod.PUT})
     public boolean update(@RequestBody Right right,@PathVariable String id) //only to test
     {
         return rightDao.update(right,id);
     }
 
-    @PreAuthorize("hasAuthority('DELETE')")
     @RequestMapping(value = "/{id}",method={RequestMethod.DELETE})
     public boolean delete(@PathVariable String id) //only to test
     {
         return rightDao.delete(id);
     }
 
-    @PreAuthorize("hasAuthority('READ')")
     @RequestMapping(value = "/{id}", method={RequestMethod.GET})
     public Right getById(@PathVariable String id) //only to test
     {
        return rightDao.getById(id);
     }
 
-    @PreAuthorize("hasAuthority('CREATE')")
 	@RequestMapping(value="/{id}/assign/{roleId}",method={RequestMethod.POST})
 	public boolean assign(@PathVariable String id, @PathVariable String roleId)
 	{
@@ -63,7 +56,6 @@ public class RightController
 		return true;
 	}
 
-    @PreAuthorize("hasAuthority('CREATE')")
 	@RequestMapping(value="/{id}/unassign/{roleId}",method={RequestMethod.DELETE})
 	public boolean unassign(@PathVariable String id, @PathVariable String roleId)
 	{

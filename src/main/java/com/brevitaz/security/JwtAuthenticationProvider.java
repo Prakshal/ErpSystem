@@ -16,8 +16,9 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
-public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider{
+public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
         /*@Override
         public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -53,6 +54,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         String token = jwtAuthenticationToken.getToken();
 
+
         Employee employee = jwtValidator.validate(token);
 
         if (employee == null) {
@@ -65,7 +67,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
      List<GrantedAuthority> grantedAuthorities= mapToGrantedAuthorities(employee.getRole());
 
 
-         return new EmployeeDetails(employee.getId(),employee.getFirstName(),employee.getLastName(), employee.getPassword(),employee.getEmailId(),
+        return new EmployeeDetails(employee.getId(),employee.getFirstName(),employee.getLastName(), employee.getPassword(),employee.getEmailId(),
                 token,
                 grantedAuthorities
         );
