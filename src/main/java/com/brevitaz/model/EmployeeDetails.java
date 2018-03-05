@@ -13,10 +13,9 @@ public class EmployeeDetails implements UserDetails
     private String emailID;
     private String token;
     private String id;
-    private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public EmployeeDetails(String id,String firstName, String lastName, String password, String emailId,String token, List<GrantedAuthority> grantedAuthorities)
+    public EmployeeDetails(String id,String firstName, String lastName, String emailId,String token, List<GrantedAuthority> grantedAuthorities)
     {
         this.id=id;
         this.firstName=firstName;
@@ -24,7 +23,6 @@ public class EmployeeDetails implements UserDetails
         this.emailID=emailId;
         this.authorities=grantedAuthorities;
         this.token=token;
-        this.password=password;
     }
 
     @Override

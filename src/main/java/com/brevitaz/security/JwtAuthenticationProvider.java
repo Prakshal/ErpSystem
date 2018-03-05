@@ -18,24 +18,8 @@ import java.util.List;
 
 
 @Component
-public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
-
-        /*@Override
-        public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String name=authentication.getName().trim();
-        System.out.println(name);
-        //String password=authentication.getCredentials().toString().trim();
-        System.out.println("Authenticate Method Called");
-
-        if("Yash".equals(name))
-        {
-            System.out.println("Authenticated");
-            return new UsernamePasswordAuthenticationToken(name,null);
-        }
-        else {
-            throw new BadCredentialsException("Authentication Failes");
-        }
-    }*/
+public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider
+{
 
     @Autowired
     public JwtValidator jwtValidator;
@@ -60,22 +44,15 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         if (employee == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
-
-     /*   List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(String.valueOf(jwtUser.getRole()));*/
-
-     List<GrantedAuthority> grantedAuthorities= mapToGrantedAuthorities(employee.getRole());
+        List<GrantedAuthority> grantedAuthorities= mapToGrantedAuthorities(employee.getRole());
 
 
-        return new EmployeeDetails(employee.getId(),employee.getFirstName(),employee.getLastName(), employee.getPassword(),employee.getEmailId(),
+        return new EmployeeDetails(employee.getId(),employee.getFirstName(),employee.getLastName() ,employee.getEmailId(),
                 token,
                 grantedAuthorities
         );
     }
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
-        /*return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
-                .collect(Collectors.toList());*/
 
         List<GrantedAuthority> grantedAuthorities=new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();

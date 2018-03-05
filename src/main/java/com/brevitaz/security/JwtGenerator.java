@@ -17,9 +17,10 @@ public class JwtGenerator
 
         claims.put("firstName",employee.getFirstName());
         claims.put("lastName",employee.getLastName());
-        claims.put("password",employee.getPassword());
         claims.put("id",employee.getId());
         claims.put("role",employee.getRole());
+
+
 
         return Jwts.builder()
                 .setClaims(claims)

@@ -2,13 +2,11 @@ package com.brevitaz.controller;
 
 import com.brevitaz.model.Employee;
 import com.brevitaz.security.JwtGenerator;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/api/token")
 public class TokenController
 {
     private JwtGenerator jwtGenerator;
@@ -17,7 +15,7 @@ public class TokenController
         this.jwtGenerator = jwtGenerator;
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public String generate(@RequestBody final Employee employee)
     {
         return jwtGenerator.generate(employee);

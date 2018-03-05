@@ -29,10 +29,7 @@ public class JwtValidator
 
             employee=new Employee();
 
-
             employee.setEmailId(body.getSubject());
-
-            employee.setPassword((String)body.get("password"));
 
             employee.setId((String)body.get("id"));
 
@@ -53,34 +50,6 @@ public class JwtValidator
                 System.out.println("ROLE "+r);
                 return r;
             }).collect(Collectors.toList());
-
-
-            //List<Role> roles1=body.get("role",List.class);
-
-
-            /*List<Role> r = new ArrayList<>();
-            List<Right> rightList = new ArrayList<>();
-
-            for (int i=0; i<roles.size(); i++) {
-                Role role = new Role();
-                role.setId(roles.get(i).get("id"));
-                role.setName(roles.get(i).get("name"));
-                //role.setRights()=roles.get(i).get("rights"));
-
-                for(int j=0;i<roles.get(i).get("rights").length();j++)
-                {
-                    Right right=new Right();
-                    right.setId(rights.get(j).get("id"));
-                    right.setName(rights.get(j).get("name"));
-                    rightList.add(right);
-                }
-                role.setRights(rightList);
-                r.add(role);
-            }*/
-
-            //List<Role> rolesList = roles.stream().map(role -> new Role(role.get("id"),role.get("name"),role.get("role").)).collect(Collectors.toList());
-
-//            jwtUser.setRoles(roles1);
             employee.setRole(roleList);
         }
         catch (Exception e)
