@@ -41,7 +41,6 @@ public class JwtValidator
             employee.setLastName((String)body.get("lastName"));
 
             List<LinkedHashMap<String,Object>> roles = (List<LinkedHashMap<String,Object>>)body.get("role");
-//            List<LinkedHashMap<String,String>> rights = (List<LinkedHashMap<String,String>>) roles.get(0).get("rights");
 
             List<Role> roleList = roles.stream().map(role -> {
                 List<Right> rights = ((List<LinkedHashMap<String, String>>) role.get("right"))
@@ -83,7 +82,6 @@ public class JwtValidator
 
 //            jwtUser.setRoles(roles1);
             employee.setRole(roleList);
-            System.out.println(employee.getRole());
         }
         catch (Exception e)
         {

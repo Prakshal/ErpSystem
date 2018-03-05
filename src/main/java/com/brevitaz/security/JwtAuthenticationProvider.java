@@ -80,7 +80,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         List<GrantedAuthority> grantedAuthorities=new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
 
-        roles.forEach(r -> r.getRight().forEach(right -> stringBuilder.append(right.getName()).append(",")));
+        roles.forEach(role -> role.getRight().forEach(right -> stringBuilder.append(right.getName()).append(",")));
         String substring = stringBuilder.toString().substring(0, stringBuilder.length() - 1);
 
         grantedAuthorities.addAll(AuthorityUtils.commaSeparatedStringToAuthorityList(substring));

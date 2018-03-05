@@ -62,4 +62,10 @@ public class RightController
 		System.out.println("Right unassigned");
 		return true;
 	}
+
+	@RequestMapping(value = "/msg", method = RequestMethod.GET)
+    public String msg()
+    {
+        return "Hello";
+    }
 }
