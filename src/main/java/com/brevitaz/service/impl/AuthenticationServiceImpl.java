@@ -1,16 +1,21 @@
 package com.brevitaz.service.impl;
 
 import com.brevitaz.model.Employee;
+import com.brevitaz.model.EmployeeDetails;
 import com.brevitaz.model.JwtAuthenticationToken;
 import com.brevitaz.security.JwtGenerator;
 import com.brevitaz.service.EmployeeService;
 import com.brevitaz.service.AuthenticationService;
 import org.elasticsearch.rest.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Base64;
 
 @Service
@@ -18,9 +23,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     EmployeeService employeeService;
-
-    @Autowired
-    private JwtGenerator jwtGenerator;
 
     @Override
     public ResponseEntity<String> login(String username, String password){
@@ -34,14 +36,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Employee employee = employeeService.getByUsernameAndPassword(username,pass);
 
         if(employee!=null) {
-            String token = jwtGenerator.generate(employee);
-
-            return new ResponseEntity<>("Authorized", HttpStatus.OK);
+            return new ResponseEntity<>("Authorized",HttpStatus.OK);
         }
         else
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
-
     }
+
+
 
     @Override
     public boolean logout() {

@@ -6,6 +6,8 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 
 @RestController
@@ -29,7 +31,8 @@ public class AuthenticationController {
     }*/
 
     @RequestMapping(value = "/login" ,method = {RequestMethod.POST})
-    public @ResponseBody ResponseEntity<String> login(@RequestParam("username") String username, @RequestParam("password") String password){
+
+    public @ResponseBody ResponseEntity<String> login(@RequestParam("username") String username, @RequestParam("password") String password,HttpServletResponse httpServletResponse){
         return authenticationService.login(username,password);
     }
 

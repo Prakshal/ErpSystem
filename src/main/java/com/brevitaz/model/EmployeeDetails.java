@@ -8,6 +8,9 @@ import java.util.List;
 
 public class EmployeeDetails implements UserDetails
 {
+    public EmployeeDetails() {
+    }
+
     private String firstName;
     private String lastName;
     private String emailID;

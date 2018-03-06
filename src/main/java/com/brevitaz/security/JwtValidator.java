@@ -5,6 +5,7 @@ import com.brevitaz.model.Right;
 import com.brevitaz.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -15,7 +16,8 @@ import java.util.stream.Collectors;
 @Component
 public class JwtValidator
 {
-    private String secret = "brevitaz";
+    @Value("${secretKey}")
+    private String secretKey;
 
     public Employee validate(String token)
     {
@@ -23,7 +25,7 @@ public class JwtValidator
         try
         {
             Claims body = Jwts.parser()
-                    .setSigningKey(secret)
+                    .setSigningKey(secretKey)
                     .parseClaimsJws(token)
                     .getBody();
 

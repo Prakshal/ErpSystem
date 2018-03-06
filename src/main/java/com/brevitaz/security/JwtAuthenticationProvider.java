@@ -24,7 +24,6 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     @Autowired
     public JwtValidator jwtValidator;
 
-
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 
@@ -38,19 +37,28 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         String token = jwtAuthenticationToken.getToken();
 
-
         Employee employee = jwtValidator.validate(token);
 
         if (employee == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
-        List<GrantedAuthority> grantedAuthorities= mapToGrantedAuthorities(employee.getRole());
 
 
-        return new EmployeeDetails(employee.getId(),employee.getFirstName(),employee.getLastName() ,employee.getEmailId(),
-                token,
-                grantedAuthorities
-        );
+
+
+        List<GrantedAuthority> grantedAuthorities = mapToGrantedAuthorities(employee.getRole());
+
+        EmployeeDetails employeeDetails=null;
+
+        if(employeeDetails == null) {
+            employeeDetails = new EmployeeDetails(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmailId(),
+                    token,
+                    grantedAuthorities
+            );
+            return employeeDetails;
+        }
+        else
+            return employeeDetails;
     }
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
 
@@ -59,6 +67,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         roles.forEach(role -> role.getRight().forEach(right -> stringBuilder.append(right.getName()).append(",")));
         String substring = stringBuilder.toString().substring(0, stringBuilder.length() - 1);
+        System.out.println(substring);
 
         grantedAuthorities.addAll(AuthorityUtils.commaSeparatedStringToAuthorityList(substring));
 
