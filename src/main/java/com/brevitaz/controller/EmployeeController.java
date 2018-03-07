@@ -15,7 +15,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @PreAuthorize("hasAuthority('CREATE')")
+    @PreAuthorize("hasAuthority('Employee:CREATE')")
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee) {
         return employeeService.create(employee);

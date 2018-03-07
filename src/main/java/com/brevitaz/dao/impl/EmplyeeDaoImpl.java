@@ -36,6 +36,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
     private static final String TYPE_NAME="doc";
     private static final String INDEX_NAME="employee";
 
+
     @Autowired
     private RestHighLevelClient client;
 
