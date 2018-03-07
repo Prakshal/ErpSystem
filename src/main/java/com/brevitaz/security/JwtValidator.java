@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Component
 public class JwtValidator
 {
@@ -28,6 +29,7 @@ public class JwtValidator
 
             employee=new Employee();
 
+
             employee.setEmailId(body.getSubject());
 
             employee.setPassword((String)body.get("password"));
@@ -39,19 +41,18 @@ public class JwtValidator
             employee.setLastName((String)body.get("lastName"));
 
             List<LinkedHashMap<String,Object>> roles = (List<LinkedHashMap<String,Object>>)body.get("role");
-//            List<LinkedHashMap<String,String>> rights = (List<LinkedHashMap<String,String>>) roles.get(0).get("rights");
-
 
             List<Role> roleList = roles.stream().map(role -> {
-                List<Right> rights = ((List<LinkedHashMap<String, String>>) role.get("rights"))
+                List<Right> rights = ((List<LinkedHashMap<String, String>>) role.get("right"))
                         .stream().map(right -> new Right(right.get("id"), right.get("name"))).collect(Collectors.toList());
                 Role r = new Role();
                 r.setRight(rights);
                 r.setName(role.get("name").toString());
                 r.setId(role.get("id").toString());
+                System.out.println("RIGHTS  "+rights);
+                System.out.println("ROLE "+r);
                 return r;
             }).collect(Collectors.toList());
-
 
 
             //List<Role> roles1=body.get("role",List.class);
@@ -81,7 +82,6 @@ public class JwtValidator
 
 //            jwtUser.setRoles(roles1);
             employee.setRole(roleList);
-            System.out.println(employee.getRole());
         }
         catch (Exception e)
         {

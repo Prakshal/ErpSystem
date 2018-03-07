@@ -25,8 +25,6 @@ public class RoleController {
     @RequestMapping(value="/{id}/assign/{employeeId}",method = {RequestMethod.POST})
     public boolean assign(@PathVariable String id,String employeeId)
     {
-        System.out.println("Assign roles Successfully");
-        System.out.println("Role "+id+ " to employee "+employeeId);
         return true;
     }
 
@@ -41,7 +39,7 @@ public class RoleController {
 
         return roleDao.getById(id);
     }
-    
+
     @RequestMapping(value = "/{id}",method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String id) {
         return roleDao.delete(id);

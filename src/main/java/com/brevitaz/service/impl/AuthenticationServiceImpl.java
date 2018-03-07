@@ -1,9 +1,11 @@
 package com.brevitaz.service.impl;
 
 import com.brevitaz.model.Employee;
+import com.brevitaz.security.JwtGenerator;
 import com.brevitaz.service.EmployeeService;
 import com.brevitaz.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     EmployeeService employeeService;
 
+    @Autowired
+    JwtGenerator jwtGenerator;
+
     @Override
     public ResponseEntity<String> login(String username, String password){
        /* byte[] pwd = Base64.getDecoder().decode(password.getBytes());
@@ -27,8 +32,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         Employee employee = employeeService.getByUsernameAndPassword(username,pass);
 
-        if(employee!=null)
-            return new ResponseEntity<>("Authorized", HttpStatus.OK);
+        if(employee!=null) {
+            String token = jwtGenerator.generate(employee);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer "+token);
+            return new ResponseEntity<>("Authorized", headers, HttpStatus.OK);
+        }
         else
             return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
 

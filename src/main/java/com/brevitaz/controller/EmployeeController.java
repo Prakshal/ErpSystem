@@ -7,50 +7,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/employee")
-public class EmployeeController
-{
+public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody Employee employee){
+    public boolean create(@RequestBody Employee employee) {
         return employeeService.create(employee);
     }
 
-    @PreAuthorize("hasAnyAuthority('READ','CREATE')")
+    @PreAuthorize("hasAuthority('READ')")
     @RequestMapping(method = {RequestMethod.GET})
-    public List<Employee> getAll(){
+    public List<Employee> getAll() {
         return employeeService.getAll();
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody Employee employee,@PathVariable String id){
-        return employeeService.update(employee,id);
+    public boolean update(@RequestBody Employee employee, @PathVariable String id) {
+        return employeeService.update(employee, id);
     }
 
+    @PreAuthorize("hasAuthority('DELETE')")
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id){
-       return employeeService.delete(id);
+    public boolean delete(@PathVariable String id) {
+        return employeeService.delete(id);
     }
 
 
     @PreAuthorize("hasAuthority('READ')")
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String id){
+    public Employee getById(@PathVariable String id) {
         return employeeService.getById(id);
-    }
-
-    @RequestMapping(value = "/msg/{msg}", method = RequestMethod.GET)
-    public String msg(@PathVariable String msg)
-    {
-        return msg;
     }
 }

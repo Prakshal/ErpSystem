@@ -23,6 +23,7 @@ import java.util.Collections;
 @Configuration
 public class JwtSecurityConfig extends WebSecurityConfigurerAdapter
 {
+
     @Autowired
     private JwtAuthenticationProvider authenticationProvider;
 
@@ -48,13 +49,13 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("**/api/**").authenticated()
+                .authorizeRequests().antMatchers("/api/employee/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.cors();
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
     }

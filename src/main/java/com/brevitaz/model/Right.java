@@ -8,7 +8,10 @@ public class Right
 	public Right() {
 	}
 
-	public Right(String id, String name) {
+	public Right(String id, String name)
+	{
+		this.id=id;
+		this.name=name;
 	}
 
 	public String getId() {
