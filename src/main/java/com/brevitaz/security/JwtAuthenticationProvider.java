@@ -29,7 +29,6 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     }
 
-
     @Override
     protected UserDetails retrieveUser(String userName, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 
@@ -43,14 +42,12 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             throw new RuntimeException("JWT Token is incorrect");
         }
 
-
-
-
-        List<GrantedAuthority> grantedAuthorities = mapToGrantedAuthorities(employee.getRole());
-
+        List<GrantedAuthority> grantedAuthorities = null;
         EmployeeDetails employeeDetails=null;
 
-        if(employeeDetails == null) {
+        if(employeeDetails == null)
+        {
+            grantedAuthorities = mapToGrantedAuthorities(employee.getRole());
             employeeDetails = new EmployeeDetails(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmailId(),
                     token,
                     grantedAuthorities
@@ -67,7 +64,6 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         roles.forEach(role -> role.getRight().forEach(right -> stringBuilder.append(right.getName()).append(",")));
         String substring = stringBuilder.toString().substring(0, stringBuilder.length() - 1);
-        System.out.println(substring);
 
         grantedAuthorities.addAll(AuthorityUtils.commaSeparatedStringToAuthorityList(substring));
 
