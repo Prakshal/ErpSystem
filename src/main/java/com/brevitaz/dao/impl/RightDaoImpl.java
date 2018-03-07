@@ -1,12 +1,8 @@
 package com.brevitaz.dao.impl;
 
-import com.brevitaz.config.ESConfig;
 import com.brevitaz.dao.RightDao;
 import com.brevitaz.model.Right;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -18,14 +14,13 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +31,10 @@ public class RightDaoImpl implements RightDao {
     public static final String TYPE_NAME = "doc";
 
     @Autowired
-    private ESConfig esConfig;
+    private RestHighLevelClient client;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    ObjectMapper objectMapper;
 
     @Override
     public boolean insert(Right right){
@@ -50,7 +46,7 @@ public class RightDaoImpl implements RightDao {
             try {
                 String json = objectMapper.writeValueAsString(right);
                 request.source(json, XContentType.JSON);
-                IndexResponse response = esConfig.getEsClient().index(request);
+                IndexResponse response = client.index(request);
                 if (response.status() == RestStatus.OK)
                     return true;
                 else
@@ -69,7 +65,7 @@ public class RightDaoImpl implements RightDao {
         SearchRequest request = new SearchRequest(INDEX_NAME);
         request.types(TYPE_NAME);
         try {
-            SearchResponse response = esConfig.getEsClient().search(request);
+            SearchResponse response = client.search(request);
             SearchHit[] hits = response.getHits().getHits();
             Right right;
             for (SearchHit hit : hits) {
@@ -96,7 +92,7 @@ public class RightDaoImpl implements RightDao {
         try {
             json = objectMapper.writeValueAsString(right);
             request.doc(json, XContentType.JSON);
-            UpdateResponse response = esConfig.getEsClient().update(request);
+            UpdateResponse response = client.update(request);
             if (response.status() == RestStatus.OK)
                 return true;
             else
@@ -117,7 +113,7 @@ public class RightDaoImpl implements RightDao {
                 id
         );
         try {
-            DeleteResponse response = esConfig.getEsClient().delete(request);
+            DeleteResponse response = client.delete(request);
             if (response.status() == RestStatus.NOT_FOUND)
                 return true;
             else
@@ -137,7 +133,7 @@ public class RightDaoImpl implements RightDao {
                 id
         );
         try {
-            GetResponse response = esConfig.getEsClient().get(request);
+            GetResponse response = client.get(request);
             Right right = objectMapper.readValue(response.getSourceAsString(), Right.class);
             if (response.isExists())
                 return right;

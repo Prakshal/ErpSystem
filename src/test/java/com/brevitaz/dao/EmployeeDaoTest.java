@@ -39,35 +39,35 @@ public class EmployeeDaoTest {
     @Test
     public void createTest(){
         Employee employee = new Employee();
-        employee.setId("1");
+        employee.setId("brz123");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
         employee.setPassword("abcd");
         employeeDao.insert(employee);
-        Employee employee1=employeeDao.getById("1");
+        Employee employee1=employeeDao.getById("brz123");
         Assert.assertEquals(employee1.getFirstName(),employee.getFirstName());
         Assert.assertEquals(employee1.getLastName(),employee.getLastName());
 
-        employeeDao.delete("1");
+        employeeDao.delete("brz123");
     }
 
     @Test
     public void getAllTest(){
 
         Employee employee = new Employee();
-        employee.setId("1");
+        employee.setId("brz123");
         employee.setFirstName("abc");
         employee.setLastName("pqr");
         employee.setPassword("abcd");
 
         Employee employee1 = new Employee();
-        employee1.setId("2");
+        employee1.setId("brz124");
         employee1.setFirstName("mno");
         employee1.setLastName("abc");
         employee1.setPassword("abcd");
 
         Employee employee2 = new Employee();
-        employee2.setId("3");
+        employee2.setId("brz125");
         employee2.setFirstName("mno");
         employee2.setLastName("abc");
         employee2.setPassword("abcd");
@@ -86,9 +86,9 @@ public class EmployeeDaoTest {
         int size = employees.size();
         Assert.assertEquals(3,size);
 
-        employeeDao.delete("1");
-        employeeDao.delete("2");
-        employeeDao.delete("3");
+        employeeDao.delete("brz123");
+        employeeDao.delete("brz124");
+        employeeDao.delete("brz125");
        }
 
     @Test

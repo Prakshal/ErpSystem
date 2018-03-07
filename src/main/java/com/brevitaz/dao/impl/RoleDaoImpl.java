@@ -1,6 +1,5 @@
 package com.brevitaz.dao.impl;
 
-import com.brevitaz.config.ESConfig;
 import com.brevitaz.dao.RoleDao;
 import com.brevitaz.model.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,13 +12,13 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +29,10 @@ public class RoleDaoImpl implements RoleDao {
     private static final String INDEX_NAME="role";
 
     @Autowired
-    private ESConfig esConfig;
+    private RestHighLevelClient client;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public boolean create(Role role){
@@ -44,7 +44,7 @@ public class RoleDaoImpl implements RoleDao {
         try {
             String json = objectMapper.writeValueAsString(role);
             request.source(json, XContentType.JSON);
-            IndexResponse response = esConfig.getEsClient().index(request);
+            IndexResponse response = client.index(request);
             if (response.status() == RestStatus.OK) {
                 return true;
             } else {
@@ -64,7 +64,7 @@ public class RoleDaoImpl implements RoleDao {
         SearchRequest request = new SearchRequest(INDEX_NAME);
         request.types(TYPE_NAME);
         try {
-            SearchResponse searchResponse = esConfig.getEsClient().search(request);
+            SearchResponse searchResponse = client.search(request);
             SearchHit[] hits = searchResponse.getHits().getHits();
             Role role;
             for (SearchHit hit : hits) {
@@ -88,7 +88,7 @@ public class RoleDaoImpl implements RoleDao {
 
         try {
 
-            GetResponse response = esConfig.getEsClient().get(request);
+            GetResponse response = client.get(request);
             Role role = objectMapper.readValue(response.getSourceAsString(), Role.class);
             if (response.isExists()) {
                 return role;
@@ -111,7 +111,7 @@ public class RoleDaoImpl implements RoleDao {
                 TYPE_NAME,
                 id);
         try {
-            DeleteResponse response = esConfig.getEsClient().delete(request);
+            DeleteResponse response = client.delete(request);
             if (response.status() == RestStatus.NOT_FOUND) {
                 return true;
             } else {

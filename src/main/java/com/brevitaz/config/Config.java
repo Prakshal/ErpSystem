@@ -1,5 +1,6 @@
 package com.brevitaz.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -8,33 +9,42 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ESConfig {
+public class Config {
     @Value("${elasticsearch.port}")
-    Integer portNumber;
+    private Integer portNumber;
 
     @Value("${elasticsearch.host}")
-    String host;
+    private String host;
 
     @Value("${elasticsearch.scheme}")
-    String scheme;
+    private String scheme;
 
-    private RestHighLevelClient esClient;
+    private RestHighLevelClient client;
+    private ObjectMapper objectMapper;
 
     @Bean
-    public RestHighLevelClient getEsClient() {
-        if (esClient == null) {
-            this.esClient = new RestHighLevelClient(
+    public RestHighLevelClient client() {
+        if (client == null) {
+            this.client = new RestHighLevelClient(
                     RestClient.builder(new HttpHost(host, portNumber, scheme)).build());
         }
-        return esClient;
+        return client;
     }
 
     public void setEsClient(RestHighLevelClient esClient) {
-        this.esClient = esClient;
+        this.client = esClient;
     }
-    public ESConfig() {
+    public Config() {
 
     }
 
-
+    @Bean
+    public ObjectMapper objectMapper()
+    {
+        if(objectMapper == null)
+        {
+            objectMapper = new ObjectMapper();
+        }
+        return objectMapper;
+    }
 }

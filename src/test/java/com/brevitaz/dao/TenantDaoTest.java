@@ -28,6 +28,7 @@ public class TenantDaoTest {
 
     @Rule
     public final SpringMethodRule springMethodRule = new SpringMethodRule();
+
     @Autowired
     private TenantDao tenantDao;
 
