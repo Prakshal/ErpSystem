@@ -24,11 +24,8 @@ public class TokenProvider
     public String generate(Employee employee)
     {
         Claims claims = Jwts.claims()
-                .setSubject(employee.getEmailId());
+                .setSubject(employee.getId());
 
-        claims.put("firstName",employee.getFirstName());
-        claims.put("lastName",employee.getLastName());
-        claims.put("id",employee.getId());
         claims.put("role",employee.getRole());
 
         return Jwts.builder()
@@ -50,12 +47,6 @@ public class TokenProvider
             employee=new Employee();
 
             employee.setEmailId(body.getSubject());
-
-            employee.setId((String)body.get("id"));
-
-            employee.setFirstName((String)body.get("firstName"));
-
-            employee.setLastName((String)body.get("lastName"));
 
             List<LinkedHashMap<String,Object>> roles = (List<LinkedHashMap<String,Object>>)body.get("role");
 
