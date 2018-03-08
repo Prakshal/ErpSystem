@@ -1,6 +1,5 @@
 package com.brevitaz.dao.impl;
 
-import com.brevitaz.config.ESConfig;
 import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,6 +14,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
@@ -36,10 +36,12 @@ public class EmplyeeDaoImpl implements EmployeeDao
     private static final String TYPE_NAME="doc";
     private static final String INDEX_NAME="employee";
 
-    @Autowired
-    private ESConfig esConfig;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private RestHighLevelClient client;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public boolean insert(Employee employee){
@@ -52,7 +54,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
             employee.setPassword(Base64.getEncoder().encodeToString(employee.getPassword().getBytes()));
             String json = objectMapper.writeValueAsString(employee);
             request.source(json, XContentType.JSON);
-            IndexResponse response = esConfig.getEsClient().index(request);
+            IndexResponse response = client.index(request);
             if(response.status()== RestStatus.OK) {
                 return true;
             }
@@ -75,7 +77,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
         request.types(TYPE_NAME);
 
         try {
-            SearchResponse response = esConfig.getEsClient().search(request);
+            SearchResponse response = client.search(request);
             SearchHit[] hits = response.getHits().getHits();
             Employee employee;
 
@@ -102,7 +104,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
 
             String json = objectMapper.writeValueAsString(employee);
             request.doc(json, XContentType.JSON);
-            UpdateResponse response = esConfig.getEsClient().update(request);
+            UpdateResponse response = client.update(request);
             if (response.status() == RestStatus.OK) {
                 return true;
             } else {
@@ -125,7 +127,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
 
         try {
 
-            DeleteResponse response = esConfig.getEsClient().delete(request);
+            DeleteResponse response = client.delete(request);
             response.status();
             if (response.status() == RestStatus.NOT_FOUND) {
                 return true;
@@ -149,7 +151,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
 
         try {
 
-            GetResponse response = esConfig.getEsClient().get(request);
+            GetResponse response = client.get(request);
             Employee employee = objectMapper.readValue(response.getSourceAsString(), Employee.class);
             if (response.isExists()) {
                 return employee;
@@ -176,7 +178,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
         request.source(sourceBuilder);
 
         try {
-            SearchResponse response = esConfig.getEsClient().search(request);
+            SearchResponse response = client.search(request);
             SearchHit[] hits = response.getHits().getHits();
             Employee employee = null;
 

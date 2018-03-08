@@ -18,34 +18,16 @@ import java.util.List;
 
 
 @Component
-public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
-
-        /*@Override
-        public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String name=authentication.getName().trim();
-        System.out.println(name);
-        //String password=authentication.getCredentials().toString().trim();
-        System.out.println("Authenticate Method Called");
-
-        if("Yash".equals(name))
-        {
-            System.out.println("Authenticated");
-            return new UsernamePasswordAuthenticationToken(name,null);
-        }
-        else {
-            throw new BadCredentialsException("Authentication Failes");
-        }
-    }*/
+public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider
+{
 
     @Autowired
     public JwtValidator jwtValidator;
-
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
 
     }
-
 
     @Override
     protected UserDetails retrieveUser(String userName, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
@@ -54,28 +36,28 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         String token = jwtAuthenticationToken.getToken();
 
-
         Employee employee = jwtValidator.validate(token);
 
         if (employee == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
 
-     /*   List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(String.valueOf(jwtUser.getRole()));*/
+        List<GrantedAuthority> grantedAuthorities = null;
+        EmployeeDetails employeeDetails=null;
 
-     List<GrantedAuthority> grantedAuthorities= mapToGrantedAuthorities(employee.getRole());
-
-
-        return new EmployeeDetails(employee.getId(),employee.getFirstName(),employee.getLastName(), employee.getPassword(),employee.getEmailId(),
-                token,
-                grantedAuthorities
-        );
+        if(employeeDetails == null)
+        {
+            grantedAuthorities = mapToGrantedAuthorities(employee.getRole());
+            employeeDetails = new EmployeeDetails(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmailId(),
+                    token,
+                    grantedAuthorities
+            );
+            return employeeDetails;
+        }
+        else
+            return employeeDetails;
     }
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
-        /*return authorities.stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
-                .collect(Collectors.toList());*/
 
         List<GrantedAuthority> grantedAuthorities=new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
