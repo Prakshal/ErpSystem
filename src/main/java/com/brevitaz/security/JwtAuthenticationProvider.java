@@ -22,10 +22,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 {
 
     @Autowired
-    private JwtValidator jwtValidator;
-
-    @Autowired
-    private TokenProvider tokenProvider;
+    public TokenProvider tokenProvider;
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
@@ -51,7 +48,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         if(employeeDetails == null)
         {
             grantedAuthorities = mapToGrantedAuthorities(employee.getRole());
-            employeeDetails = new EmployeeDetails(employee.getId(), employee.getFirstName(), employee.getLastName(), employee.getEmailId(),
+            employeeDetails = new EmployeeDetails(employee.getId(),
                     token,
                     grantedAuthorities
             );
