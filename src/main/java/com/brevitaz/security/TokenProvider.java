@@ -5,6 +5,7 @@ import com.brevitaz.model.Right;
 import com.brevitaz.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +13,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Component
-public class JwtValidator
+public class TokenProvider
 {
     @Value("${secretKey}")
     private String secretKey;
+
+    public String generate(Employee employee)
+    {
+        Claims claims = Jwts.claims()
+                .setSubject(employee.getId());
+
+        claims.put("role",employee.getRole());
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
 
     public Employee validate(String token)
     {
@@ -30,14 +43,6 @@ public class JwtValidator
                     .getBody();
 
             employee=new Employee();
-
-            employee.setEmailId(body.getSubject());
-
-            employee.setId((String)body.get("id"));
-
-            employee.setFirstName((String)body.get("firstName"));
-
-            employee.setLastName((String)body.get("lastName"));
 
             List<LinkedHashMap<String,Object>> roles = (List<LinkedHashMap<String,Object>>)body.get("role");
 

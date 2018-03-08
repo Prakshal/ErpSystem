@@ -11,19 +11,13 @@ public class EmployeeDetails implements UserDetails
     public EmployeeDetails() {
     }
 
-    private String firstName;
-    private String lastName;
-    private String emailID;
     private String token;
     private String id;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public EmployeeDetails(String id,String firstName, String lastName, String emailId,String token, List<GrantedAuthority> grantedAuthorities)
+    public EmployeeDetails(String id,String token, List<GrantedAuthority> grantedAuthorities)
     {
         this.id=id;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.emailID=emailId;
         this.authorities=grantedAuthorities;
         this.token=token;
     }
@@ -62,18 +56,6 @@ public class EmployeeDetails implements UserDetails
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmailID() {
-        return emailID;
     }
 
     public String getToken() {
