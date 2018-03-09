@@ -1,5 +1,6 @@
 package com.brevitaz.dao.impl;
 
+import com.brevitaz.config.Config;
 import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -36,12 +37,10 @@ public class EmplyeeDaoImpl implements EmployeeDao
     private static final String TYPE_NAME="doc";
     private static final String INDEX_NAME="employee";
 
-
     @Autowired
     private RestHighLevelClient client;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public boolean insert(Employee employee){
@@ -67,7 +66,7 @@ public class EmplyeeDaoImpl implements EmployeeDao
         {
             e.printStackTrace();
         }
-       return false;
+        return false;
     }
 
     @Override
@@ -173,8 +172,8 @@ public class EmplyeeDaoImpl implements EmployeeDao
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
         sourceBuilder.query(QueryBuilders.boolQuery()
-                            .must(matchQuery("emailId.keyword", username))
-                            .must(matchQuery("password.keyword", password)));
+                .must(matchQuery("emailId.keyword", username))
+                .must(matchQuery("password.keyword", password)));
         request.source(sourceBuilder);
 
         try {
