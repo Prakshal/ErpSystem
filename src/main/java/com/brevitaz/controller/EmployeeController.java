@@ -39,7 +39,6 @@ public class EmployeeController {
         return employeeService.delete(id);
     }
 
-
     @PreAuthorize("hasAuthority('Employee:READ')")
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public Employee getById(@PathVariable String id) {

@@ -1,5 +1,6 @@
 package com.brevitaz.security;
 
+
 import com.brevitaz.model.Employee;
 import com.brevitaz.model.Right;
 import com.brevitaz.model.Role;
@@ -18,6 +19,7 @@ public class TokenProvider
 {
     @Value("${secretKey}")
     private String secretKey;
+
 
     public String generate(Employee employee)
     {
@@ -43,6 +45,8 @@ public class TokenProvider
                     .getBody();
 
             employee=new Employee();
+
+            employee.setEmailId(body.getSubject());
 
             List<LinkedHashMap<String,Object>> roles = (List<LinkedHashMap<String,Object>>)body.get("role");
 
