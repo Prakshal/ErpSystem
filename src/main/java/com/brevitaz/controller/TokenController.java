@@ -5,7 +5,7 @@ import com.brevitaz.security.TokenProvider;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("token")
 public class TokenController
 {
     private TokenProvider tokenProvider;

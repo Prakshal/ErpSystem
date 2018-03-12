@@ -15,7 +15,19 @@ public class EmployeeDetails implements UserDetails
     private String id;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public EmployeeDetails(String id,String token, List<GrantedAuthority> grantedAuthorities)
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public EmployeeDetails(String id, String token, List<GrantedAuthority> grantedAuthorities)
     {
         this.id=id;
         this.authorities=grantedAuthorities;

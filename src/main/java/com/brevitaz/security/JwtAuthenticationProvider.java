@@ -1,21 +1,13 @@
 package com.brevitaz.security;
 
-import com.brevitaz.model.Employee;
 import com.brevitaz.model.EmployeeDetails;
 import com.brevitaz.model.JwtAuthenticationToken;
-import com.brevitaz.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider
@@ -36,13 +28,13 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
         String token = jwtAuthenticationToken.getToken();
 
-        Employee employee = tokenProvider.validate(token);
+        EmployeeDetails employee = tokenProvider.validate(token);
 
         if (employee == null) {
             throw new RuntimeException("JWT Token is incorrect");
         }
 
-        List<GrantedAuthority> grantedAuthorities = null;
+        /*List<GrantedAuthority> grantedAuthorities = null;
         EmployeeDetails employeeDetails=null;
 
         if(employeeDetails == null)
@@ -51,13 +43,10 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
             employeeDetails = new EmployeeDetails(employee.getId(),
                     token,
                     grantedAuthorities
-            );
-            return employeeDetails;
-        }
-        else
-            return employeeDetails;
+            );*/
+        return employee;
     }
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
+    /*private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
 
         List<GrantedAuthority> grantedAuthorities=new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
@@ -68,5 +57,5 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         grantedAuthorities.addAll(AuthorityUtils.commaSeparatedStringToAuthorityList(substring));
 
         return grantedAuthorities;
-    }
+    }*/
 }
